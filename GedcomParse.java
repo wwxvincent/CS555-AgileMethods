@@ -1,6 +1,6 @@
 package project3;
 //Author: Wenxuan Wang
-//Team Members: Wenxuan; Chengyi; Shweta hello
+//Team Members: Wenxuan; Chengyi; Shweta hello hi
 //purpose: for CS555-project3:
 //Date: 2/13/2020
 //description: main class;
