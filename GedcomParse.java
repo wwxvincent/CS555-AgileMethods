@@ -55,6 +55,37 @@ public class GedcomParse {
 			e.printStackTrace();
 		}
 	}
+	
+	public boolean checkOneDateAfterOneDateValid(String year, String month, String day, String birthStr) {
+		
+		boolean flag = false;
+		String yearBirthStr = birthStr.substring(0,4);
+		int yearBirthInt = Integer.parseInt(yearBirthStr);
+		int yearDeathInt = Integer.parseInt(year);
+		//check;
+		if(yearDeathInt > yearBirthInt) {
+			flag = true;
+			System.out.println("test: year to death is okay");
+		}else if(yearDeathInt == yearBirthInt) {
+			String monthBirthStr = birthStr.substring(6,8);
+			int monthBirthInt = Integer.parseInt(monthBirthStr);
+			int monthDeathInt = Integer.parseInt(month);
+			if(monthBirthInt < monthDeathInt) {
+				flag = true;
+				System.out.println("test: month to death is okay");
+			}else if(monthBirthInt == monthDeathInt) {
+				String dayBirthStr = birthStr.substring(8);
+				int dayBirthInt = Integer.parseInt(dayBirthStr);
+				int dayDeathInt = Integer.parseInt(day);
+				if(dayBirthInt < dayDeathInt) {
+					flag = true;
+					System.out.println("test: day to death is okay");
+				}
+			}
+		}
+		
+		return flag;
+	}
 	//analysis the data, then put it into individualList and famliyList separately;
 	public void writeIntoIndividualList() {
 		//tag 0:INDI
@@ -142,26 +173,63 @@ public class GedcomParse {
 							String month = deathArray[3];
 							String year = deathArray[4];
 							
-							switch(month) {
-							case "JAN": month = "-01-"; break;
-							case "FEB": month = "-02-"; break;
-							case "MAR": month = "-03-"; break;
-							case "APR": month = "-04-"; break;
-							case "MAY": month = "-05-"; break;
-							case "JUN": month = "-06-"; break;
-							case "JUL": month = "-07-"; break;
-							case "AUG": month = "-08-"; break;
-							case "SEP": month = "-09-"; break;
-							case "OCT": month = "-10-"; break;
-							case "NOV": month = "-11-"; break;
-							case "DEC": month = "-12-"; break;
-							default: month ="-Error-";
+//							/*
+//							 * * Sprint 1: Birth before death
+//							 *  original method;
+//							 */
+//							boolean flag = false;
+//							String birthStr = individualList.get(individualList.size()-1).getBirthday();
+//							String yearBirthStr = birthStr.substring(0,4);
+//							int yearBirthInt = Integer.parseInt(yearBirthStr);
+//							int yearDeathInt = Integer.parseInt(year);
+//							//check;
+//							if(yearDeathInt > yearBirthInt) {
+//								flag = true;
+//								System.out.println("test: year to death is okay");
+//							}else if(yearDeathInt == yearBirthInt) {
+//								String monthBirthStr = birthStr.substring(6,8);
+//								int monthBirthInt = Integer.parseInt(monthBirthStr);
+//								int monthDeathInt = Integer.parseInt(month);
+//								if(monthBirthInt < monthDeathInt) {
+//									flag = true;
+//									System.out.println("test: month to death is okay");
+//								}else if(monthBirthInt == monthDeathInt) {
+//									String dayBirthStr = birthStr.substring(8);
+//									int dayBirthInt = Integer.parseInt(dayBirthStr);
+//									int dayDeathInt = Integer.parseInt(day);
+//									if(dayBirthInt < dayDeathInt) {
+//										flag = true;
+//										System.out.println("test: day to death is okay");
+//									}
+//								}
+//							}
+							String birthStr = individualList.get(individualList.size()-1).getBirthday();
+							boolean flag = checkOneDateAfterOneDateValid(year,month,day,birthStr);
+							
+							if(flag) {
+								
+								switch(month) {
+									case "JAN": month = "-01-"; break;
+									case "FEB": month = "-02-"; break;
+									case "MAR": month = "-03-"; break;
+									case "APR": month = "-04-"; break;
+									case "MAY": month = "-05-"; break;
+									case "JUN": month = "-06-"; break;
+									case "JUL": month = "-07-"; break;
+									case "AUG": month = "-08-"; break;
+									case "SEP": month = "-09-"; break;
+									case "OCT": month = "-10-"; break;
+									case "NOV": month = "-11-"; break;
+									case "DEC": month = "-12-"; break;
+									default: month ="-Error-";
+								}
+								//get this person and set his/her birthday;
+								individualList.get(individualList.size()-1).setDeath(year+month+day);
+								//set his/her isAlive;
+								individualList.get(individualList.size()-1).setAlive(false);
 							}
-							//get this person and set his/her birthday;
-							individualList.get(individualList.size()-1).setDeath(year+month+day);
-							//set his/her isAlive;
-							individualList.get(individualList.size()-1).setAlive(false);
 						}
+						
 					}else if(str[1].equals("FAMC")) {
 						//FAMC: individual is a child in family with family_ID
 						String family_ID = str[2];
@@ -278,25 +346,41 @@ public class GedcomParse {
 							String month = divArray[3];
 							String year = divArray[4];
 						
-							switch(month) {
-							case "JAN": month = "-01-"; break;
-							case "FEB": month = "-02-"; break;
-							case "MAR": month = "-03-"; break;
-							case "APR": month = "-04-"; break;
-							case "MAY": month = "-05-"; break;
-							case "JUN": month = "-06-"; break;
-							case "JUL": month = "-07-"; break;
-							case "AUG": month = "-08-"; break;
-							case "SEP": month = "-09-"; break;
-							case "OCT": month = "-10-"; break;
-							case "NOV": month = "-11-"; break;
-							case "DEC": month = "-12-"; break;
-							default: month ="-Error-";
+							/*
+							 * Sprint Story: Marriage before divorce:
+							 */
+							String marriStr= familyList.get(familyList.size()-1).getMarried();
+							boolean flag = checkOneDateAfterOneDateValid(year, month, day,marriStr);
+						
+							if(flag) {
+								switch(month) {
+									case "JAN": month = "-01-"; break;
+									case "FEB": month = "-02-"; break;
+									case "MAR": month = "-03-"; break;
+									case "APR": month = "-04-"; break;
+									case "MAY": month = "-05-"; break;
+									case "JUN": month = "-06-"; break;
+									case "JUL": month = "-07-"; break;
+									case "AUG": month = "-08-"; break;
+									case "SEP": month = "-09-"; break;
+									case "OCT": month = "-10-"; break;
+									case "NOV": month = "-11-"; break;
+									case "DEC": month = "-12-"; break;
+									default: month ="-Error-";
+								}
+								familyList.get(familyList.size()-1).setDivorced(year+month+day);
 							}
-							familyList.get(familyList.size()-1).setDivorced(year+month+day);
-						}else if(divArray.length==3) {
-							String year = divArray[2];
-							familyList.get(familyList.size()-1).setDivorced(year);
+							}else if(divArray.length==3) {
+								String year = divArray[2];
+								String marriStr= familyList.get(familyList.size()-1).getMarried();
+								String marrYearStr= marriStr.substring(0,4);
+								int yearDiv = Integer.parseInt(year);
+								int yearMar = Integer.parseInt(marrYearStr);
+								if(yearDiv > yearMar) {
+									familyList.get(familyList.size()-1).setDivorced(year);
+								}else {
+									System.out.println(familyList.get(familyList.size()-1).getID()+" divoce date error");
+								}
 						}
 					}
 				}
@@ -307,6 +391,7 @@ public class GedcomParse {
 	}
 	
 	public static void main(String[] args) {
+		
 		GedcomParse proj3 = new GedcomParse();
 		proj3.readFile();
 		proj3.writeIntoIndividualList();
