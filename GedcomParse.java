@@ -38,7 +38,7 @@ public class GedcomParse {
 		//dataGet = new ArrayList<String>();
 		try {
 //			InputStream file = new FileInputStream("/Users/wenxuanwang/Desktop/My-Family-15-Feb-2020-387.ged");
-			InputStream file = new FileInputStream("/Users/wenxuanwang/Desktop/testForSprint1.ged");
+			InputStream file = new FileInputStream("C:/Users/Shweta Singh/eclipse-workspace/AP 555/src/My-Family-15-Feb-2020-387.ged");
 			BufferedReader reader = new BufferedReader( new InputStreamReader(file));
 			String str = null;
 			while(true) {
@@ -492,6 +492,34 @@ public class GedcomParse {
 		}
 	}
 	
+	public void maleLastTime() {// shweta singh user story16
+		
+		System.out.println("\nSprint 1-US16-Male last names-Shweta Singh\n");
+		for (Individual person : individualList) {
+			 String[] splitStr;
+			 String lastName="";
+			 
+			 if(person.getGender().equals("M")) {
+				 splitStr = (person.getName().trim().split("/"));
+				 lastName = splitStr[1].trim();
+				 System.out.println("Last Name: "+lastName.trim());
+			 }
+		}
+	}
+	
+	public void listDeceased() {// shweta singh user story16
+
+		System.out.println("\nSprint 1-US29-List deceased-Shweta Singh\n");
+		for (Individual person : individualList) {
+			 String listDece="";
+			 
+			 if(person.getIsAlive() == false) {
+				 listDece = person.getName();
+				 System.out.println("Name: "+listDece.replace("/", "").trim());
+			 }
+		}
+	}
+	
 	public static void main(String[] args) {
 		GedcomParse proj3 = new GedcomParse();
 		proj3.readFile();
@@ -556,6 +584,12 @@ public class GedcomParse {
 		proj3.checkBBD(proj3.individualList);
 		System.out.println("Sprint 1: story 2: Marriage before divorce (Wenxuan Wang)");
 		proj3.checkMDB(proj3.familyList);
+		
+		//Shweta Singh US16 Male last names
+		proj3.maleLastTime();
+		
+		//Shweta Singh US29 List deceased
+		proj3.listDeceased();
 
 	}
 }
