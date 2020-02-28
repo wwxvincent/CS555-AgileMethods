@@ -1,10 +1,10 @@
 package project3;
 //Author: Wenxuan Wang
-//Team Members: Wenxuan; Chengyi; Shweta hello hi
+//Team Members: Wenxuan; Chengyi; Shweta
 //purpose: for CS555-project3:
 //Date: 2/13/2020
 //description: main class;
-// hhh
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileReader;
@@ -37,8 +37,8 @@ public class GedcomParse {
 	public void readFile() {
 		//dataGet = new ArrayList<String>();
 		try {
-//			InputStream file = new FileInputStream("/Users/wenxuanwang/Desktop/export-BloodTree.ged");
-			InputStream file = new FileInputStream("/Users/wenxuanwang/Desktop/My-Family-15-Feb-2020-387.ged");
+//			InputStream file = new FileInputStream("/Users/wenxuanwang/Desktop/My-Family-15-Feb-2020-387.ged");
+			InputStream file = new FileInputStream("/Users/wenxuanwang/Desktop/testForSprint1.ged");
 			BufferedReader reader = new BufferedReader( new InputStreamReader(file));
 			String str = null;
 			while(true) {
@@ -56,36 +56,6 @@ public class GedcomParse {
 		}
 	}
 	
-	public boolean checkOneDateAfterOneDateValid(String year, String month, String day, String birthStr) {
-		
-		boolean flag = false;
-		String yearBirthStr = birthStr.substring(0,4);
-		int yearBirthInt = Integer.parseInt(yearBirthStr);
-		int yearDeathInt = Integer.parseInt(year);
-		//check;
-		if(yearDeathInt > yearBirthInt) {
-			flag = true;
-			System.out.println("test: year to death is okay");
-		}else if(yearDeathInt == yearBirthInt) {
-			String monthBirthStr = birthStr.substring(6,8);
-			int monthBirthInt = Integer.parseInt(monthBirthStr);
-			int monthDeathInt = Integer.parseInt(month);
-			if(monthBirthInt < monthDeathInt) {
-				flag = true;
-				System.out.println("test: month to death is okay");
-			}else if(monthBirthInt == monthDeathInt) {
-				String dayBirthStr = birthStr.substring(8);
-				int dayBirthInt = Integer.parseInt(dayBirthStr);
-				int dayDeathInt = Integer.parseInt(day);
-				if(dayBirthInt < dayDeathInt) {
-					flag = true;
-					System.out.println("test: day to death is okay");
-				}
-			}
-		}
-		
-		return flag;
-	}
 	//analysis the data, then put it into individualList and famliyList separately;
 	public void writeIntoIndividualList() {
 		//tag 0:INDI
@@ -203,10 +173,10 @@ public class GedcomParse {
 //									}
 //								}
 //							}
-							String birthStr = individualList.get(individualList.size()-1).getBirthday();
-							boolean flag = checkOneDateAfterOneDateValid(year,month,day,birthStr);
+							//String birthStr = individualList.get(individualList.size()-1).getBirthday();
+							//boolean flag = checkOneDateAfterOneDateValid(year,month,day,birthStr);
 							
-							if(flag) {
+							//if(flag) {
 								
 								switch(month) {
 									case "JAN": month = "-01-"; break;
@@ -227,7 +197,7 @@ public class GedcomParse {
 								individualList.get(individualList.size()-1).setDeath(year+month+day);
 								//set his/her isAlive;
 								individualList.get(individualList.size()-1).setAlive(false);
-							}
+							//}
 						}
 						
 					}else if(str[1].equals("FAMC")) {
@@ -333,26 +303,24 @@ public class GedcomParse {
 						childList.add(id);
 						//add the child list into this family;
 						thisFamily.setChildren(childList);
-					}
-				}else if(str[1].equals("DIV")) {
-					//then skip into next line, get the date
-					String divString = dataGet.get(++i);
-					String[] divArray = divString.split(" ");
-					//check the tag
-					if(divArray[0].equals("2") && divArray[1].equals("DATE")) {
-						
-						if(divArray.length>=5) {
-							String day = divArray[2];
-							String month = divArray[3];
-							String year = divArray[4];
-						
+					}else if(str[1].equals("DIV")) {
+						//then skip into next line, get the date
+						//System.out.println("DIV yes!");
+						String divString = dataGet.get(++i);
+						String[] divArray = divString.split(" ");
+						//check the tag
+						if(divArray[0].equals("2") && divArray[1].equals("DATE")) {
+							if(divArray.length>=5) {
+								String day = divArray[2];
+								String month = divArray[3];
+								String year = divArray[4];
 							/*
 							 * Sprint Story: Marriage before divorce:
 							 */
-							String marriStr= familyList.get(familyList.size()-1).getMarried();
-							boolean flag = checkOneDateAfterOneDateValid(year, month, day,marriStr);
+							//String marriStr= familyList.get(familyList.size()-1).getMarried();
+							//boolean flag = checkOneDateAfterOneDateValid(year, month, day,marriStr);
 						
-							if(flag) {
+							//if(flag) {
 								switch(month) {
 									case "JAN": month = "-01-"; break;
 									case "FEB": month = "-02-"; break;
@@ -369,29 +337,162 @@ public class GedcomParse {
 									default: month ="-Error-";
 								}
 								familyList.get(familyList.size()-1).setDivorced(year+month+day);
-							}
+							//}
 							}else if(divArray.length==3) {
 								String year = divArray[2];
-								String marriStr= familyList.get(familyList.size()-1).getMarried();
-								String marrYearStr= marriStr.substring(0,4);
-								int yearDiv = Integer.parseInt(year);
-								int yearMar = Integer.parseInt(marrYearStr);
-								if(yearDiv > yearMar) {
+								//String marriStr= familyList.get(familyList.size()-1).getMarried();
+								//String marrYearStr= marriStr.substring(0,4);
+								//int yearDiv = Integer.parseInt(year);
+								//int yearMar = Integer.parseInt(marrYearStr);
+								//if(yearDiv > yearMar) {
 									familyList.get(familyList.size()-1).setDivorced(year);
-								}else {
-									System.out.println(familyList.get(familyList.size()-1).getID()+" divoce date error");
-								}
+								//}else {
+								//	System.out.println(familyList.get(familyList.size()-1).getID()+" divoce date error");
+								//}
+							}
 						}
 					}
 				}
+					
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
 	
-	public static void main(String[] args) {
+	
+	/**
+	 * for sprint 1 Wenxuan Wang part
+	 * story 1: birth before death
+	 * story 2: Marriage before divorce
+	 */
+	private boolean checkOneDateAfterOneDateValid(String deathStr, String birthStr) {
 		
+		boolean flag = false;
+		//convert birthStr to
+		//test
+		//System.out.println(deathStr);
+		//System.out.println(birthStr);
+		String yearBirthStr = birthStr.substring(0,4);
+		String yearDeathStr = deathStr.substring(0,4);
+		int yearBirthInt = Integer.parseInt(yearBirthStr);
+		int yearDeathInt = Integer.parseInt(yearDeathStr);
+		//check;
+		if(yearDeathInt > yearBirthInt) {
+			flag = true;
+			//System.out.println("test: year to death is okay");
+		}else if(yearDeathInt == yearBirthInt) {
+			String monthBirthStr = birthStr.substring(5,7);
+			String monthDeathStr = deathStr.substring(5,7);
+			int monthBirthInt = Integer.parseInt(monthBirthStr);
+			int monthDeathInt = Integer.parseInt(monthDeathStr);
+			if(monthBirthInt < monthDeathInt) {
+				flag = true;
+				//System.out.println("test: month to death is okay");
+			}else if(monthBirthInt == monthDeathInt) {
+				String dayBirthStr = birthStr.substring(8);
+				String dayDeathStr = deathStr.substring(8);
+				int dayBirthInt = Integer.parseInt(dayBirthStr);
+				int dayDeathInt = Integer.parseInt(dayDeathStr);
+				if(dayBirthInt < dayDeathInt) {
+					flag = true;
+					//System.out.println("test: day to death is okay");
+				}
+			}
+		}
+		
+		return flag;
+	}
+	// story 1: birth before death
+	public void checkBBD(List<Individual> individualList) {
+		List<Individual> deathErrorList = new ArrayList<>();
+		for(Individual person: individualList) {
+			//IF the death is not "NA", then check the death is valid or not
+			if(!person.getDeath().equals("NA")) {
+				String birthStr = person.getBirthday();
+				String deathStr = person.getDeath();
+				if(!checkOneDateAfterOneDateValid(deathStr,birthStr)) {
+					deathErrorList.add(person);
+				}
+				//do something to display error!
+			}
+		}
+		//System.out.println(deathErrorList.size());
+		if(deathErrorList.isEmpty()) {
+			System.out.println("No Death error");
+		}else {
+			System.out.println("Death error List");
+			System.out.println("+-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+");
+			System.out.println("| ID  | Name               | Gender | Birthday  | Age | Alive | Death      | Child     | Spouse    |");
+			System.out.println("+-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+");
+			for (Individual person : deathErrorList) {
+				 String child;
+				 if(!person.getChild().equals("NA")) {
+					 child = "{'"+person.getChild()+"'}";
+				 }else {
+					 child = "NA";
+				 }
+				 String spouse;
+				 if(!person.getSpouse().equals("NA")) {
+					 spouse = "{'"+person.getSpouse()+"'}";
+				 }else {
+					 spouse = "NA";
+				 }
+				System.out.printf("|%-5s|%-20s|%-8s|%-11s|%-5d|%-7b|%-12s|%-11s|%-11s|%n", 
+						person.getId(), person.getName(), person.getGender(), person.getBirthday(),
+						person.getAge(), person.getIsAlive(), person.getDeath(),  child  ,  spouse );
+			}
+			System.out.println("+-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+");
+			System.out.println();
+		}
+	}
+	// story 2: Marriage before divorce
+	public void checkMDB(List<Family> familyList) {
+		List<Family> marriedErrorList = new ArrayList<>();
+		for(Family one: familyList) {
+			//IF the death is not "NA", then check the death is valid or not
+			//for test
+			//System.out.println(one.getMarried());
+			if(!one.getDivorced().equals("NA")) {
+				String marrStr = one.getMarried();
+				String divStr = one.getDivorced();
+				if(!checkOneDateAfterOneDateValid(divStr,marrStr)) {
+					marriedErrorList.add(one);
+				}
+			}
+				//do something to display error!
+		}
+		//System.out.println(marriedErrorList.size());
+		if(marriedErrorList.isEmpty()) {
+					System.out.println("No Married error");
+		}else {
+			System.out.println("Married Error List");
+			System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
+			System.out.println("| ID  | Married    | Divorced   | Husband ID | Husband Name       | Wife ID   | Wife Name          |   Childern         |");
+			System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
+			for (Family family : marriedErrorList) {
+				String childString="";
+				if(!(family.getChildren()==null)) {
+					for(String child: family.getChildren()) {
+						//for test to debug
+						//System.out.println(child);
+						childString = childString+"','"+child;	
+					}
+					childString = childString.substring(2);
+					childString = "{"+childString+"'}";
+				}else {
+					childString = "{'"+"NA"+"'}";
+				}
+				System.out.printf("|%-5s|%-12s|%-12s|%-12s|%-20s|%-11s|%-20s|%-20s|%n",
+						family.getID(), family.getMarried(), family.getDivorced(), family.getHusbandID(), family.getHusbandName(),
+						family.getWifeID(), family.getWifeName(), childString);
+			}
+			System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
+			System.out.println();
+		}
+	}
+	
+	public static void main(String[] args) {
 		GedcomParse proj3 = new GedcomParse();
 		proj3.readFile();
 		proj3.writeIntoIndividualList();
@@ -408,36 +509,53 @@ public class GedcomParse {
 			 if(!person.getChild().equals("NA")) {
 				 child = "{'"+person.getChild()+"'}";
 			 }else {
-				 child = "NA";
+				 child = "{'"+"NA"+"'}";
 			 }
 			 String spouse;
 			 if(!person.getSpouse().equals("NA")) {
 				 spouse = "{'"+person.getSpouse()+"'}";
 			 }else {
-				 spouse = "NA";
+				 spouse = "{'"+"NA"+"'}";
 			 }
 			System.out.printf("|%-5s|%-20s|%-8s|%-11s|%-5d|%-7b|%-12s|%-11s|%-11s|%n", 
 					person.getId(), person.getName(), person.getGender(), person.getBirthday(),
 					person.getAge(), person.getIsAlive(), person.getDeath(),  child  ,  spouse );
 		}
 		System.out.println("+-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+");
+		System.out.println();
 		System.out.println("Families");
 		System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
 		System.out.println("| ID  | Married    | Divorced   | Husband ID | Husband Name       | Wife ID   | Wife Name          |   Childern         |");
 		System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
 		for (Family family : proj3.familyList) {
 			String childString="";
-			for(String child: family.getChildren()) {
-				childString = childString+"','"+child;
+			if(!(family.getChildren()==null)) {
+				for(String child: family.getChildren()) {
+					//for test to debug
+					//System.out.println(child);
+					childString = childString+"','"+child;	
+				}
+				childString = childString.substring(2);
+				childString = "{"+childString+"'}";
+			}else {
+				childString = "{'"+"NA"+"'}";
 			}
-			childString = childString.substring(2);
-			childString = "{"+childString+"'}";
 			System.out.printf("|%-5s|%-12s|%-12s|%-12s|%-20s|%-11s|%-20s|%-20s|%n",
 					family.getID(), family.getMarried(), family.getDivorced(), family.getHusbandID(), family.getHusbandName(),
 					family.getWifeID(), family.getWifeName(), childString);
 		}
 		System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
-	
+		System.out.println();
+		
+		/**
+		 * for sprint 1 Wenxuan Wang part
+		 * story 1: birth before death
+		 * story 2: Marriage before divorce
+		 */
+		System.out.println("Sprint 1: story 1: Birth before death (Wenxuan Wang)");
+		proj3.checkBBD(proj3.individualList);
+		System.out.println("Sprint 1: story 2: Marriage before divorce (Wenxuan Wang)");
+		proj3.checkMDB(proj3.familyList);
 
 	}
 }
