@@ -566,6 +566,175 @@ public class GedcomParse {
 		}
 	}
 	
+	//Sprint 1 Chengyi Zhang part
+	
+	public boolean isValid(String datestr){
+		String[] nums = datestr.split("-",3);
+		int year = Integer.parseInt(nums[0]);
+		int month = Integer.parseInt(nums[1]);
+		int day = Integer.parseInt(nums[2]);
+		HashMap<Integer, Integer> monthdays = new HashMap<>();
+		if(year>2020){
+			return false;
+		}
+		if(year%4==0 && year%400!=0){
+			monthdays.put(1,31);
+			monthdays.put(2,29);
+			monthdays.put(3,31);
+			monthdays.put(4,30);
+			monthdays.put(5,31);
+			monthdays.put(6,30);
+			monthdays.put(7,31);
+			monthdays.put(8,31);
+			monthdays.put(9,30);
+			monthdays.put(10,31);
+			monthdays.put(11,30);
+			monthdays.put(12,31);
+			if(day<1 || day>monthdays.getOrDefault(month,-1)){
+				return false;
+			}
+		}else{
+			monthdays.put(1,31);
+			monthdays.put(2,28);
+			monthdays.put(3,31);
+			monthdays.put(4,30);
+			monthdays.put(5,31);
+			monthdays.put(6,30);
+			monthdays.put(7,31);
+			monthdays.put(8,31);
+			monthdays.put(9,30);
+			monthdays.put(10,31);
+			monthdays.put(11,30);
+			monthdays.put(12,31);
+			if(day<1 || day>monthdays.getOrDefault(month,-1)){
+				return false;
+			}
+		}
+	}
+
+	public void checkDates(){
+		System.out.println("Sprint 1 Chengyi Zhang story 1:");
+		System.out.println("All Dates must be valid\n");
+		
+		//Check dates in individual list
+		List<Individual> Indi_Date_Errors = new ArrayList<>();
+		boolean checkdea, checkbir;
+		for(Individual one in proj3.individualList){
+			if(!one.getDeath().equals("NA")){
+				checkdea = isValid(one.getDeath());
+			}else checkdea = true;
+			checkbir = isValid(one.getBirthday());
+			if(checkdea&&checkbir == false){
+				Indi_Date_Errors.add(one);
+			}
+		}
+		if(Indi_Date_Errors.isEmpty()){
+			System.out.println("No Date Error in Individual List.\n");
+		}
+		else{
+			System.out.println("Individual Date Error List:");
+			System.out.println("+-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+");
+			System.out.println("| ID  | Name               | Gender | Birthday  | Age | Alive | Death      | Child     | Spouse    |");
+			System.out.println("+-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+");
+			for (Individual person : Indi_Date_Errors) {
+				String child;
+				if(!person.getChild().equals("NA")) {
+					child = "{'"+person.getChild()+"'}";
+				}else{
+					child = "NA";
+				}
+				String spouse;
+				if(!person.getSpouse().equals("NA")) {
+					spouse = "{'"+person.getSpouse()+"'}";
+				}else{
+					spouse = "NA";
+				}
+				System.out.printf("|%-5s|%-20s|%-8s|%-11s|%-5d|%-7b|%-12s|%-11s|%-11s|%n", 
+				person.getId(), person.getName(), person.getGender(), person.getBirthday(),
+				person.getAge(), person.getIsAlive(), person.getDeath(),  child  ,  spouse );
+			}
+			System.out.println("+-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+");
+			System.out.println();
+		}
+		//Check dates in family list
+		List<Family> Fam_Date_Errors = new ArrayList<>();
+		boolean checkmar, checkdiv;
+		for(Family one in proj3.familyList){
+			if(!one.getDivorced().equals("NA")){
+				checkdiv = isValid(one.getDivorced());
+			}else checkdiv = true;
+			checkmar = isValid(one.getMarried());
+			if(checkmar && checkdiv == false){
+				Fam_Date_Errors.add(one);
+			}
+		}
+		if(Fam_Date_Errors.isEmpty()){
+			System.out.println("No Date Error in Family List.\n");
+		}else{
+			System.out.println("Family Date Error List:");
+			System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
+			System.out.println("| ID  | Married    | Divorced   | Husband ID | Husband Name       | Wife ID   | Wife Name          |   Childern         |");
+			System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
+			for (Family family : Fam_Date_Errors) {
+				String childString="";
+				if(!(family.getChildren()==null)) {
+					for(String child: family.getChildren()) {
+						childString = childString+"','"+child;	
+					}
+					childString = childString.substring(2);
+					childString = "{"+childString+"'}";
+				}else {
+					childString = "{'"+"NA"+"'}";
+				}
+				System.out.printf("|%-5s|%-12s|%-12s|%-12s|%-20s|%-11s|%-20s|%-20s|%n",
+						family.getID(), family.getMarried(), family.getDivorced(), family.getHusbandID(), family.getHusbandName(),
+						family.getWifeID(), family.getWifeName(), childString);
+			}
+			System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
+			System.out.println();
+		}
+	}
+	
+	public String takelastname(String name){
+		return name.substring(name.IndexOf('/')+1,name.LastIndexOf('/'));
+	}
+
+	public void checkFName(){
+		System.out.println("Sprint 1 Chengyi Zhang Story 2:");
+		System.out.println("For a family in which Divorce is NA, all members should share the same family name (Non-Chinese Families)\n");
+		for(Family one: proj3.familyList){
+			String lastname = takelastname(one.getHusbandName());
+			System.out.println("Family: Last Name is "+ lastname);
+			if(one.getDivorced().equals("NA")){
+				System.out.println("This Family got divorced.\n");
+				continue;
+			}
+			else{
+				System.out.println("This Family is not divorced.");
+				if(!takelastname(one.getWifeName()).equals(lastname)){
+					System.out.println("This Family has different family names.\n");
+					continue;
+				}
+				for(String ID : one.getChildren()){
+					for(Individual person : proj3.individualList){
+						if(person.getID().equals(ID)){
+							if(!takelastname(person.getName()).equals(lastname)){
+								System.out.println("This Family has different family names.\n");
+								continue;
+							}
+							else{
+								break;
+							}
+						}
+					}
+				}
+			}
+			System.out.println("This Family has no different family names.\n");
+		}
+	}
+	
+	// Chengyi Zhang part ends
+	
 	public static void main(String[] args) {
 		GedcomParse proj3 = new GedcomParse();
 		proj3.readFile();
@@ -637,5 +806,10 @@ public class GedcomParse {
 		//Shweta Singh US29 List deceased
 		proj3.listDeceased();
 
+		//Chengyi Zhang Story 1: All Dates must be valid
+		proj3.checkDates();
+		//Chengyi Zhang Story 2: For a family in which Divorce is NA, all members should share the same family name (Non-Chinese Families)
+		proj3.checkFName();
+		
 	}
 }
