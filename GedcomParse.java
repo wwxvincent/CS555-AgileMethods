@@ -1,4 +1,4 @@
-package project3;
+//package project3;
 //Author: Wenxuan Wang
 //Team Members: Wenxuan; Chengyi; Shweta
 //purpose: for CS555-project3:
@@ -494,8 +494,54 @@ public class GedcomParse {
 	
 	public void maleLastTime() {// shweta singh user story16
 		
-		System.out.println("\nSprint 1-US16-Male last names-Shweta Singh\n");
-		for (Individual person : individualList) {
+		
+		System.out.println("\n-------------Sprint 1-US16-Male last names-Shweta Singh---------------\n");
+		boolean matchSurname = false;
+		
+		for (Family family : familyList) {
+			System.out.print("\nFamily Last name: ");
+			
+			String lastName="";
+			
+			if(!(family.getChildren()==null)) {
+				int count = family.getChildren().size();
+				int count1=0;
+				
+				lastName = (family.getHusbandName().split("/"))[1].trim();
+				System.out.print(lastName+"\n");
+				for(String child: family.getChildren()) {
+					
+					String childLastName = "";
+					//childLastName = child
+					System.out.print("Child surname: ");
+					for(Individual person : individualList) {
+						
+						String childName = (person.getName().split("/"))[1].trim();
+						if(person.getId().equals(child)) {
+							if(lastName.equals(childName)) {
+								//true
+								count1++;
+								System.out.print(childName+"\n");
+							}
+						}
+						if(count == count1) {
+							matchSurname = true;
+							break;
+						}
+						matchSurname = false;
+							
+						
+					}
+				}
+			}
+			System.out.println("\nSurname matched? "+matchSurname);
+			System.out.println("----------------------");
+		}
+	}
+		
+					
+				
+		/*for (Individual person : individualList) {
 			 String[] splitStr;
 			 String lastName="";
 			 
@@ -504,12 +550,12 @@ public class GedcomParse {
 				 lastName = splitStr[1].trim();
 				 System.out.println("Last Name: "+lastName.trim());
 			 }
-		}
-	}
+		}*/
+	
 	
 	public void listDeceased() {// shweta singh user story16
 
-		System.out.println("\nSprint 1-US29-List deceased-Shweta Singh\n");
+		System.out.println("\n--------------Sprint 1-US29-List deceased-Shweta Singh----------------\n");
 		for (Individual person : individualList) {
 			 String listDece="";
 			 
