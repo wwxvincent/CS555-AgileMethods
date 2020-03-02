@@ -610,16 +610,17 @@ public class GedcomParse {
 				return false;
 			}
 		}
+		return false;
 	}
 
 	public void checkDates(){
-		System.out.println("Sprint 1 Chengyi Zhang story 1:");
+		System.out.println("\n-----------------Sprint 1 Chengyi Zhang story 1:------------------------");
 		System.out.println("All Dates must be valid\n");
 		
 		//Check dates in individual list
 		List<Individual> Indi_Date_Errors = new ArrayList<>();
 		boolean checkdea, checkbir;
-		for(Individual one : proj3.individualList){
+		for(Individual one : individualList){
 			if(!one.getDeath().equals("NA")){
 				checkdea = isValid(one.getDeath());
 			}else checkdea = true;
@@ -659,7 +660,7 @@ public class GedcomParse {
 		//Check dates in family list
 		List<Family> Fam_Date_Errors = new ArrayList<>();
 		boolean checkmar, checkdiv;
-		for(Family one in proj3.familyList){
+		for(Family one : familyList){
 			if(!one.getDivorced().equals("NA")){
 				checkdiv = isValid(one.getDivorced());
 			}else checkdiv = true;
@@ -696,13 +697,13 @@ public class GedcomParse {
 	}
 	
 	public String takelastname(String name){
-		return name.substring(name.IndexOf('/')+1,name.LastIndexOf('/'));
+		return name.substring(name.indexOf('/')+1,name.lastIndexOf('/'));
 	}
 
 	public void checkFName(){
-		System.out.println("Sprint 1 Chengyi Zhang Story 2:");
+		System.out.println("\n---------------Sprint 1 Chengyi Zhang Story 2:----------------");
 		System.out.println("For a family in which Divorce is NA, all members should share the same family name (Non-Chinese Families)\n");
-		for(Family one: proj3.familyList){
+		for(Family one: familyList){
 			String lastname = takelastname(one.getHusbandName());
 			System.out.println("Family: Last Name is "+ lastname);
 			if(one.getDivorced().equals("NA")){
@@ -716,8 +717,8 @@ public class GedcomParse {
 					continue;
 				}
 				for(String ID : one.getChildren()){
-					for(Individual person : proj3.individualList){
-						if(person.getID().equals(ID)){
+					for(Individual person : individualList){
+						if(person.getId().equals(ID)){
 							if(!takelastname(person.getName()).equals(lastname)){
 								System.out.println("This Family has different family names.\n");
 								continue;
@@ -795,9 +796,9 @@ public class GedcomParse {
 		 * story 1: birth before death
 		 * story 2: Marriage before divorce
 		 */
-		System.out.println("Sprint 1: story 1: Birth before death (Wenxuan Wang)");
+		System.out.println("\n----------------Sprint 1: story 1: Birth before death (Wenxuan Wang)--------------------");
 		proj3.checkBBD(proj3.individualList);
-		System.out.println("Sprint 1: story 2: Marriage before divorce (Wenxuan Wang)");
+		System.out.println("\n-----------------Sprint 1: story 2: Marriage before divorce (Wenxuan Wang)-------------------");
 		proj3.checkMDB(proj3.familyList);
 		
 		//Shweta Singh US16 Male last names

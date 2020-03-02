@@ -1,0 +1,152 @@
+Individuals
++-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+
+| ID  | Name               | Gender | Birthday  | Age | Alive | Death      | Child     | Spouse    |
++-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+
+|I1   | Wenxuan /Wang/     |M       |1991-10-1  |29   |true   |NA          |{'F1'}     |{'NA'}     |
+|I2   | Mingxiang /Wang/   |M       |1967-06-30 |53   |true   |NA          |{'F2'}     |{'F1'}     |
+|I3   | Qiuxiang /Wang/    |F       |1966-07-13 |54   |true   |NA          |{'F3'}     |{'F1'}     |
+|I4   | GuangSheng /Wang/  |M       |1930-10-10 |90   |false  |1984-07-15  |{'NA'}     |{'F2'}     |
+|I5   | Xiaonian /Jiang/   |F       |1930-10-1  |90   |true   |NA          |{'NA'}     |{'F2'}     |
+|I6   | Minghua /Wang/     |M       |1957-05-10 |63   |true   |NA          |{'F2'}     |{'F4'}     |
+|I7   | Yinling /Wang/     |F       |1986-08-15 |34   |true   |NA          |{'F4'}     |{'NA'}     |
+|I8   | Qiaoping /Zhang/   |F       |1960-06-9  |60   |true   |NA          |{'NA'}     |{'F4'}     |
+|I9   | Qiling /Wang/      |M       |2001-10-8  |19   |true   |NA          |{'F4'}     |{'NA'}     |
+|I10  | Mingzheng /Wang/   |F       |1969-07-7  |51   |true   |NA          |{'F2'}     |{'F5'}     |
+|I11  | Jiecheng /Chen/    |F       |1992-06-7  |28   |true   |NA          |{'F5'}     |{'NA'}     |
+|I12  | Li /Chen/          |M       |1967-07-13 |53   |true   |NA          |{'NA'}     |{'F5'}     |
+|I13  | Diedie /Wang/      |M       |1927-08-9  |93   |false  |1993-09-7   |{'NA'}     |{'F3'}     |
+|I14  | Jiajia /Yao/       |F       |1929-06-10 |91   |false  |1996-07-21  |{'NA'}     |{'F3'}     |
+|I15  | Chuanpeng /Wang/   |M       |1955-06-6  |65   |true   |NA          |{'F3'}     |{'F7'}     |
+|I16  | Fei /Wang/         |M       |1982-08-9  |38   |true   |NA          |{'F6'}     |{'NA'}     |
+|I17  | Zhen /Hu/          |F       |1960-08-8  |60   |false  |1982-06-12  |{'NA'}     |{'F6'}     |
+|I18  | Jiangxun /Wang/    |M       |1988-09-9  |32   |true   |NA          |{'F7'}     |{'NA'}     |
+|I19  | Jinghua /Du/       |F       |1962-04-9  |58   |true   |NA          |{'NA'}     |{'F7'}     |
++-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+
+
+Families
++-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+
+| ID  | Married    | Divorced   | Husband ID | Husband Name       | Wife ID   | Wife Name          |   Childern         |
++-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+
+|F1   |1989-06-9   |NA          |I2          | Mingxiang /Wang/   |I3         | Qiuxiang /Wang/    |{'I1'}              |
+|F2   |1952-06-8   |NA          |I4          | GuangSheng /Wang/  |I5         | Xiaonian /Jiang/   |{'I2','I6','I10'}   |
+|F3   |1949-08-8   |NA          |I13         | Diedie /Wang/      |I14        | Jiajia /Yao/       |{'I3','I15'}        |
+|F4   |1984-09-14  |NA          |I6          | Minghua /Wang/     |I8         | Qiaoping /Zhang/   |{'I7','I9'}         |
+|F5   |1988-09-11  |NA          |I12         | Li /Chen/          |I10        | Mingzheng /Wang/   |{'I11'}             |
+|F6   |1978-03-14  |NA          |I15         | Chuanpeng /Wang/   |I17        | Zhen /Hu/          |{'I16'}             |
+|F7   |1986-07-8   |NA          |I15         | Chuanpeng /Wang/   |I19        | Jinghua /Du/       |{'I18'}             |
++-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+
+
+
+----------------Sprint 1: story 1: Birth before death (Wenxuan Wang)--------------------
+No Death error
+
+-----------------Sprint 1: story 2: Marriage before divorce (Wenxuan Wang)-------------------
+No Married error
+
+-------------Sprint 1-US16-Male last names-Shweta Singh---------------
+
+
+Family Last name: Wang
+Child surname: Wang
+
+Surname matched? true
+----------------------
+
+Family Last name: Wang
+Child surname: Wang
+Child surname: Wang
+Child surname: Wang
+
+Surname matched? true
+----------------------
+
+Family Last name: Wang
+Child surname: Wang
+Child surname: Wang
+
+Surname matched? true
+----------------------
+
+Family Last name: Wang
+Child surname: Wang
+Child surname: Wang
+
+Surname matched? true
+----------------------
+
+Family Last name: Chen
+Child surname: Chen
+
+Surname matched? true
+----------------------
+
+Family Last name: Wang
+Child surname: Wang
+
+Surname matched? true
+----------------------
+
+Family Last name: Wang
+Child surname: Wang
+
+Surname matched? true
+----------------------
+
+--------------Sprint 1-US29-List deceased-Shweta Singh----------------
+
+Name: GuangSheng Wang
+Name: Diedie Wang
+Name: Jiajia Yao
+Name: Zhen Hu
+
+-----------------Sprint 1 Chengyi Zhang story 1:------------------------
+All Dates must be valid
+
+Individual Date Error List:
++-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+
+| ID  | Name               | Gender | Birthday  | Age | Alive | Death      | Child     | Spouse    |
++-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+
+|I1   | Wenxuan /Wang/     |M       |1991-10-1  |29   |true   |NA          |{'F1'}     |NA         |
+|I2   | Mingxiang /Wang/   |M       |1967-06-30 |53   |true   |NA          |{'F2'}     |{'F1'}     |
+|I3   | Qiuxiang /Wang/    |F       |1966-07-13 |54   |true   |NA          |{'F3'}     |{'F1'}     |
+|I5   | Xiaonian /Jiang/   |F       |1930-10-1  |90   |true   |NA          |NA         |{'F2'}     |
+|I6   | Minghua /Wang/     |M       |1957-05-10 |63   |true   |NA          |{'F2'}     |{'F4'}     |
+|I7   | Yinling /Wang/     |F       |1986-08-15 |34   |true   |NA          |{'F4'}     |NA         |
+|I8   | Qiaoping /Zhang/   |F       |1960-06-9  |60   |true   |NA          |NA         |{'F4'}     |
+|I9   | Qiling /Wang/      |M       |2001-10-8  |19   |true   |NA          |{'F4'}     |NA         |
+|I10  | Mingzheng /Wang/   |F       |1969-07-7  |51   |true   |NA          |{'F2'}     |{'F5'}     |
+|I11  | Jiecheng /Chen/    |F       |1992-06-7  |28   |true   |NA          |{'F5'}     |NA         |
+|I12  | Li /Chen/          |M       |1967-07-13 |53   |true   |NA          |NA         |{'F5'}     |
+|I15  | Chuanpeng /Wang/   |M       |1955-06-6  |65   |true   |NA          |{'F3'}     |{'F7'}     |
+|I16  | Fei /Wang/         |M       |1982-08-9  |38   |true   |NA          |{'F6'}     |NA         |
+|I18  | Jiangxun /Wang/    |M       |1988-09-9  |32   |true   |NA          |{'F7'}     |NA         |
+|I19  | Jinghua /Du/       |F       |1962-04-9  |58   |true   |NA          |NA         |{'F7'}     |
++-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+
+
+No Date Error in Family List.
+
+
+---------------Sprint 1 Chengyi Zhang Story 2:----------------
+For a family in which Divorce is NA, all members should share the same family name (Non-Chinese Families)
+
+Family: Last Name is Wang
+This Family got divorced.
+
+Family: Last Name is Wang
+This Family got divorced.
+
+Family: Last Name is Wang
+This Family got divorced.
+
+Family: Last Name is Wang
+This Family got divorced.
+
+Family: Last Name is Chen
+This Family got divorced.
+
+Family: Last Name is Wang
+This Family got divorced.
+
+Family: Last Name is Wang
+This Family got divorced.
+
