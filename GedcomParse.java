@@ -619,7 +619,7 @@ public class GedcomParse {
 		//Check dates in individual list
 		List<Individual> Indi_Date_Errors = new ArrayList<>();
 		boolean checkdea, checkbir;
-		for(Individual one in proj3.individualList){
+		for(Individual one : proj3.individualList){
 			if(!one.getDeath().equals("NA")){
 				checkdea = isValid(one.getDeath());
 			}else checkdea = true;
