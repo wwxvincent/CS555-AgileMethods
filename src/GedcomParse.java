@@ -1,4 +1,4 @@
-//package project3;
+//package AP;
 //Author: Wenxuan Wang
 //Team Members: Wenxuan; Chengyi; Shweta
 //purpose: for CS555-project3:
@@ -38,7 +38,7 @@ public class GedcomParse {
 		//dataGet = new ArrayList<String>();
 		try {
 //			InputStream file = new FileInputStream("/Users/wenxuanwang/Desktop/My-Family-15-Feb-2020-387.ged");
-			InputStream file = new FileInputStream("C:/Users/Shweta Singh/eclipse-workspace/AP 555/src/My-Family-15-Feb-2020-387.ged");
+			InputStream file = new FileInputStream("C:/Users/Shweta Singh/Desktop/My-Family-3-Mar-2020-614.ged");
 			BufferedReader reader = new BufferedReader( new InputStreamReader(file));
 			String str = null;
 			while(true) {
@@ -494,74 +494,45 @@ public class GedcomParse {
 	
 	public void maleLastTime() {// shweta singh user story16
 		
-		
 		System.out.println("\n-------------Sprint 1-US16-Male last names-Shweta Singh---------------\n");
-		boolean matchSurname = false;
-		
 		for (Family family : familyList) {
-			System.out.print("\nFamily Last name: ");
-			
+			//System.out.print("\nFamily Last name: ");
 			String lastName="";
-			
 			if(!(family.getChildren()==null)) {
-				int count = family.getChildren().size();
-				int count1=0;
-				
 				lastName = (family.getHusbandName().split("/"))[1].trim();
-				System.out.print(lastName+"\n");
+				//System.out.print(lastName+"\n");
 				for(String child: family.getChildren()) {
-					
-					String childLastName = "";
 					//childLastName = child
-					System.out.print("Child surname: ");
+					//System.out.print("Child surname: ");
 					for(Individual person : individualList) {
-						
 						String childName = (person.getName().split("/"))[1].trim();
-						if(person.getId().equals(child)) {
+						String personName = person.getName().replace("/", "");
+						
+						if(person.getId().equals(child) && person.getGender().equals("M")) {
 							if(lastName.equals(childName)) {
+								
 								//true
-								count1++;
-								System.out.print(childName+"\n");
+								//System.out.print(childName+"\n");
+							}
+							else {
+								System.out.println("\nERROR: FAMILY: US16: 495: "+family.getID()+": "+
+							"Surname does not match for child: "+person.getId()+" : "+personName);
 							}
 						}
-						if(count == count1) {
-							matchSurname = true;
-							break;
-						}
-						matchSurname = false;
-							
-						
 					}
 				}
 			}
-			System.out.println("\nSurname matched? "+matchSurname);
-			System.out.println("----------------------");
 		}
 	}
-		
-					
-				
-		/*for (Individual person : individualList) {
-			 String[] splitStr;
-			 String lastName="";
-			 
-			 if(person.getGender().equals("M")) {
-				 splitStr = (person.getName().trim().split("/"));
-				 lastName = splitStr[1].trim();
-				 System.out.println("Last Name: "+lastName.trim());
-			 }
-		}*/
-	
 	
 	public void listDeceased() {// shweta singh user story16
 
 		System.out.println("\n--------------Sprint 1-US29-List deceased-Shweta Singh----------------\n");
 		for (Individual person : individualList) {
 			 String listDece="";
-			 
 			 if(person.getIsAlive() == false) {
 				 listDece = person.getName();
-				 System.out.println("Name: "+listDece.replace("/", "").trim());
+				 System.out.println("Deceased Person: "+listDece.replace("/", "").trim());
 			 }
 		}
 	}
