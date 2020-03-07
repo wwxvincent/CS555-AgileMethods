@@ -1,4 +1,4 @@
-package AP;
+package project3;
 //Author: Wenxuan Wang
 //Team Members: Wenxuan; Chengyi; Shweta
 //purpose: for CS555-project3:
@@ -38,7 +38,7 @@ public class GedcomParse {
 		//dataGet = new ArrayList<String>();
 		try {
 //			InputStream file = new FileInputStream("/Users/wenxuanwang/Desktop/My-Family-15-Feb-2020-387.ged");
-			InputStream file = new FileInputStream("C:/Users/Shweta Singh/Desktop/My-Family-3-Mar-2020-614.ged");
+			InputStream file = new FileInputStream("/Users/wenxuanwang/Desktop/GedcomTestInput.ged");
 			BufferedReader reader = new BufferedReader( new InputStreamReader(file));
 			String str = null;
 			while(true) {
@@ -81,6 +81,10 @@ public class GedcomParse {
 					//put this person into map also, in order to find it to add other information;
 					individualMap.put(id,thisPerson);
 					//if level is '0 & tag is "FAM', then create and add this family;
+					
+					//set the gedom line info
+					int count = i;
+					thisPerson.setIDline(count+1);
 				}
 //				else if(str[0].equals("0") && str.length>=3 && str[2].equals("FAM")) {
 //					//create a new Family object, then store the information;
@@ -99,11 +103,18 @@ public class GedcomParse {
 							name = name +" "+ str[j];
 						}
 						individualList.get(individualList.size()-1).setName(name);
+						//set the name gedcom line info
+						int count =i;
+						individualList.get(individualList.size()-1).setNameLine(count+1);
 						//if level is 0 & tag is Sex, then add the gender
 					}else if(str[1].equals("SEX")) {
 						individualList.get(individualList.size()-1).setGender(str[2]);
+						//set the gender gedcom line info
+						int count =i;
+						individualList.get(individualList.size()-1).setgenderLine(count+1);
 					}else if(str[1].equals("BIRT")) {
 						//then skip to the next line
+						int count = i;
 						String birthString = dataGet.get(++i);
 						String[] birthArray = birthString.split(" ");
 						//check the tag
@@ -132,6 +143,8 @@ public class GedcomParse {
 							//set his/her age;
 							int age = 2020 - Integer.parseInt(year);
 							individualList.get(individualList.size()-1).setAge(age);
+							//set birthday ged line info
+							individualList.get(individualList.size()-1).setbirthdayLine(count+1);
 						}
 					}else if(str[1].equals("DEAT")) {
 						//the skip to the next Line
@@ -197,6 +210,9 @@ public class GedcomParse {
 								individualList.get(individualList.size()-1).setDeath(year+month+day);
 								//set his/her isAlive;
 								individualList.get(individualList.size()-1).setAlive(false);
+								//set the death info from the gedcom line;
+								int count = i;
+								individualList.get(individualList.size()-1).setdeathLine(count+1);
 							//}
 						}
 						
@@ -235,6 +251,9 @@ public class GedcomParse {
 						Family thisFamily = new Family();
 						String id = str[1].replaceAll("@","");
 						thisFamily.setID(id);
+						//set family id gedcom line info
+						int count = i;
+						thisFamily.setIDLine(count+1);
 						thisFamily.setDivorced("NA");
 						//then add this family into List;
 						familyList.add(thisFamily);
@@ -274,6 +293,9 @@ public class GedcomParse {
 								String year = marrArray[2];
 								familyList.get(familyList.size()-1).setMarried(year);
 							}
+							//set married gedcom line info
+							int count =i;
+							familyList.get(familyList.size()-1).setmarriedLine(count+1);
 						}
 					}else if(str[1].equals("HUSB")) {
 						String id = str[2];
@@ -350,6 +372,9 @@ public class GedcomParse {
 								//	System.out.println(familyList.get(familyList.size()-1).getID()+" divoce date error");
 								//}
 							}
+							//set divorced line gedcom info
+							int count = i;
+							familyList.get(familyList.size()-1).setdivorcedLine(count+1);
 						}
 					}
 				}
@@ -404,7 +429,7 @@ public class GedcomParse {
 		return flag;
 	}
 	// story 1: birth before death
-	public void checkBBD(List<Individual> individualList) {
+	public void US03checkBBD(List<Individual> individualList) {
 		List<Individual> deathErrorList = new ArrayList<>();
 		for(Individual person: individualList) {
 			//IF the death is not "NA", then check the death is valid or not
@@ -421,33 +446,15 @@ public class GedcomParse {
 		if(deathErrorList.isEmpty()) {
 			System.out.println("No Death error");
 		}else {
-			System.out.println("Death error List");
-			System.out.println("+-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+");
-			System.out.println("| ID  | Name               | Gender | Birthday  | Age | Alive | Death      | Child     | Spouse    |");
-			System.out.println("+-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+");
 			for (Individual person : deathErrorList) {
-				 String child;
-				 if(!person.getChild().equals("NA")) {
-					 child = "{'"+person.getChild()+"'}";
-				 }else {
-					 child = "NA";
-				 }
-				 String spouse;
-				 if(!person.getSpouse().equals("NA")) {
-					 spouse = "{'"+person.getSpouse()+"'}";
-				 }else {
-					 spouse = "NA";
-				 }
-				System.out.printf("|%-5s|%-20s|%-8s|%-11s|%-5d|%-7b|%-12s|%-11s|%-11s|%n", 
-						person.getId(), person.getName(), person.getGender(), person.getBirthday(),
-						person.getAge(), person.getIsAlive(), person.getDeath(),  child  ,  spouse );
+				System.out.println("ERROR: INDIVIDUAL: US03: "+person.gedeathLine()
+									+": "+person.getId()+": Died "+person.getDeath()+
+									" before born "+person.getBirthday());
 			}
-			System.out.println("+-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+");
-			System.out.println();
 		}
 	}
 	// story 2: Marriage before divorce
-	public void checkMDB(List<Family> familyList) {
+	public void US04checkMDB(List<Family> familyList) {
 		List<Family> marriedErrorList = new ArrayList<>();
 		for(Family one: familyList) {
 			//IF the death is not "NA", then check the death is valid or not
@@ -466,29 +473,34 @@ public class GedcomParse {
 		if(marriedErrorList.isEmpty()) {
 					System.out.println("No Married error");
 		}else {
-			System.out.println("Married Error List");
-			System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
-			System.out.println("| ID  | Married    | Divorced   | Husband ID | Husband Name       | Wife ID   | Wife Name          |   Childern         |");
-			System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
+//			System.out.println("Married Error List");
+//			System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
+//			System.out.println("| ID  | Married    | Divorced   | Husband ID | Husband Name       | Wife ID   | Wife Name          |   Childern         |");
+//			System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
+//			for (Family family : marriedErrorList) {
+//				String childString="";
+//				if(!(family.getChildren()==null)) {
+//					for(String child: family.getChildren()) {
+//						//for test to debug
+//						//System.out.println(child);
+//						childString = childString+"','"+child;	
+//					}
+//					childString = childString.substring(2);
+//					childString = "{"+childString+"'}";
+//				}else {
+//					childString = "{'"+"NA"+"'}";
+//				}
+//				System.out.printf("|%-5s|%-12s|%-12s|%-12s|%-20s|%-11s|%-20s|%-20s|%n",
+//						family.getID(), family.getMarried(), family.getDivorced(), family.getHusbandID(), family.getHusbandName(),
+//						family.getWifeID(), family.getWifeName(), childString);
+//			}
+//			System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
+//			System.out.println();
 			for (Family family : marriedErrorList) {
-				String childString="";
-				if(!(family.getChildren()==null)) {
-					for(String child: family.getChildren()) {
-						//for test to debug
-						//System.out.println(child);
-						childString = childString+"','"+child;	
-					}
-					childString = childString.substring(2);
-					childString = "{"+childString+"'}";
-				}else {
-					childString = "{'"+"NA"+"'}";
-				}
-				System.out.printf("|%-5s|%-12s|%-12s|%-12s|%-20s|%-11s|%-20s|%-20s|%n",
-						family.getID(), family.getMarried(), family.getDivorced(), family.getHusbandID(), family.getHusbandName(),
-						family.getWifeID(), family.getWifeName(), childString);
+				System.out.println("ERROR: FAMILY: US04: "+family.getdivorcedLine()
+									+": "+family.getID()+": Divorced "+family.getDivorced()+
+									" before married "+family.getMarried());
 			}
-			System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
-			System.out.println();
 		}
 	}
 	
@@ -713,8 +725,6 @@ public class GedcomParse {
 		proj3.writeIntoIndividualList();
 		proj3.writeIntofamilyList();
 		//
-		
-		 
 		System.out.println("Individuals");
 		System.out.println("+-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+");
 		System.out.println("| ID  | Name               | Gender | Birthday  | Age | Alive | Death      | Child     | Spouse    |");
@@ -762,26 +772,30 @@ public class GedcomParse {
 		System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
 		System.out.println();
 		
+		/*
+		 * 							Sprint
+		 */
+		
 		/**
 		 * for sprint 1 Wenxuan Wang part
 		 * story 1: birth before death
 		 * story 2: Marriage before divorce
 		 */
-		System.out.println("\n----------------Sprint 1: story 1: Birth before death (Wenxuan Wang)--------------------");
-		proj3.checkBBD(proj3.individualList);
-		System.out.println("\n-----------------Sprint 1: story 2: Marriage before divorce (Wenxuan Wang)-------------------");
-		proj3.checkMDB(proj3.familyList);
+		System.out.println();
+		proj3.US03checkBBD(proj3.individualList);
+		proj3.US04checkMDB(proj3.familyList);
 		
-		//Shweta Singh US16 Male last names
-		proj3.maleLastTime();
-		
-		//Shweta Singh US29 List deceased
-		proj3.listDeceased();
-
-		//Chengyi Zhang Story 1: All Dates must be valid
-		proj3.checkDates();
-		//Chengyi Zhang Story 2: For a family in which Divorce is NA, all members should share the same family name (Non-Chinese Families)
-		proj3.checkFName();
-		
+//		
+//		//Shweta Singh US16 Male last names
+//		proj3.maleLastTime();
+//		
+//		//Shweta Singh US29 List deceased
+//		proj3.listDeceased();
+//
+//		//Chengyi Zhang Story 1: All Dates must be valid
+//		proj3.checkDates();
+//		//Chengyi Zhang Story 2: For a family in which Divorce is NA, all members should share the same family name (Non-Chinese Families)
+//		proj3.checkFName();
+//		
 	}
 }

@@ -10,13 +10,65 @@ public class Family {
 	
 	//fileds;
 	private String ID;
+	private int IDLine;
 	private String married;
+	private int marriedLine;
 	private String divorced;
+	private int divorcedLine;
 	private String husbandID;
+	private int husbandIDLine;
 	private String husbandName;
+	private int husbandNameLine;
 	private String wifeID;
+	private int wifeIDLine;
 	private String wifeName;
+	private int wifeNameLine;
 	private List<String> children;
+	
+	
+	//add for sprint find the line number of the gedcom file;
+	public void setIDLine(int IDLine) {
+		this.IDLine = IDLine;
+	}
+	public int getIDLine() {
+		return IDLine;
+	}
+	public void setmarriedLine(int marriedLine) {
+		this.marriedLine = marriedLine;
+	}
+	public int getmarriedLine() {
+		return marriedLine;
+	}
+	public void setdivorcedLine(int divorcedLine) {
+		this.divorcedLine = divorcedLine;
+	}
+	public int getdivorcedLine() {
+		return divorcedLine;
+	}
+	public void sethusbandIDLine(int husbandIDLine) {
+		this.husbandIDLine = husbandIDLine;
+	}
+	public int gethusbandIDLine() {
+		return husbandIDLine;
+	}
+	public void sethusbandNameLine(int husbandNameLine) {
+		this.husbandNameLine = husbandNameLine;
+	}
+	public int gethusbandNameLine() {
+		return husbandNameLine;
+	}
+	public void setwifeIDLine(int wifeIDLine) {
+		this.wifeIDLine = wifeIDLine;
+	}
+	public int getwifeIDLine() {
+		return wifeIDLine;
+	}
+	public void setwifeNameLine(int wifeNameLine) {
+		this.wifeNameLine = wifeNameLine;
+	}
+	public int getwifeNameLine() {
+		return wifeNameLine;
+	}
 	
 	//accessors
 	public String getID() {
