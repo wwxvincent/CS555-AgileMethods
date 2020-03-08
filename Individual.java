@@ -1,6 +1,6 @@
-package project3;
+package AP;
 //Author: Wenxuan Wang
-//Team Members: Wenxuan; Chengyi; Shweta singh 10457493
+//Team Members: Wenxuan; Chengyi; Shweta
 //purpose: for CS555-project3:
 //Date: 2/13/2020
 //description: sub class:Individual for GedcomParse;
