@@ -1,4 +1,4 @@
-package project3;
+package AP;
 //Author: Wenxuan Wang
 //Team Members: Wenxuan; Chengyi; Shweta
 //purpose: for CS555-project3:
@@ -38,7 +38,7 @@ public class GedcomParse {
 		//dataGet = new ArrayList<String>();
 		try {
 //			InputStream file = new FileInputStream("/Users/wenxuanwang/Desktop/My-Family-15-Feb-2020-387.ged");
-			InputStream file = new FileInputStream("/Users/wenxuanwang/Desktop/GedcomTestInput.ged");
+			InputStream file = new FileInputStream("C:/Users/Shweta Singh/eclipse-workspace/AP 555/src/AP/My-Family-15-Feb-2020-387.ged");
 			BufferedReader reader = new BufferedReader( new InputStreamReader(file));
 			String str = null;
 			while(true) {
@@ -787,15 +787,15 @@ public class GedcomParse {
 		
 //		
 //		//Shweta Singh US16 Male last names
-//		proj3.maleLastTime();
+		proj3.maleLastTime();
 //		
 //		//Shweta Singh US29 List deceased
-//		proj3.listDeceased();
+		proj3.listDeceased();
 //
-//		//Chengyi Zhang Story 1: All Dates must be valid
-//		proj3.checkDates();
+		//Chengyi Zhang Story 1: All Dates must be valid
+		proj3.checkDates();
 //		//Chengyi Zhang Story 2: For a family in which Divorce is NA, all members should share the same family name (Non-Chinese Families)
-//		proj3.checkFName();
+		proj3.checkFName();
 //		
 	}
 }
