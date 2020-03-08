@@ -37,67 +37,18 @@ Families
 +-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+
 
 
-----------------Sprint 1: story 1: Birth before death (Wenxuan Wang)--------------------
 No Death error
-
------------------Sprint 1: story 2: Marriage before divorce (Wenxuan Wang)-------------------
 No Married error
 
 -------------Sprint 1-US16-Male last names-Shweta Singh---------------
 
 
-Family Last name: Wang
-Child surname: Wang
-
-Surname matched? true
-----------------------
-
-Family Last name: Wang
-Child surname: Wang
-Child surname: Wang
-Child surname: Wang
-
-Surname matched? true
-----------------------
-
-Family Last name: Wang
-Child surname: Wang
-Child surname: Wang
-
-Surname matched? true
-----------------------
-
-Family Last name: Wang
-Child surname: Wang
-Child surname: Wang
-
-Surname matched? true
-----------------------
-
-Family Last name: Chen
-Child surname: Chen
-
-Surname matched? true
-----------------------
-
-Family Last name: Wang
-Child surname: Wang
-
-Surname matched? true
-----------------------
-
-Family Last name: Wang
-Child surname: Wang
-
-Surname matched? true
-----------------------
-
 --------------Sprint 1-US29-List deceased-Shweta Singh----------------
 
-Name: GuangSheng Wang
-Name: Diedie Wang
-Name: Jiajia Yao
-Name: Zhen Hu
+Deceased Person: GuangSheng Wang
+Deceased Person: Diedie Wang
+Deceased Person: Jiajia Yao
+Deceased Person: Zhen Hu
 
 -----------------Sprint 1 Chengyi Zhang story 1:------------------------
 All Dates must be valid
