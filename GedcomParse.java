@@ -1,4 +1,4 @@
-package project3;
+package AP;
 //Author: Wenxuan Wang
 //Team Members: Wenxuan; Chengyi; Shweta
 //purpose: for CS555-project3:
@@ -24,8 +24,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import project3.Family;
-import project3.Individual;
+import AP.Family;
+import AP.Individual;
 
 public class GedcomParse {
 	//fileds;
@@ -515,7 +515,7 @@ public class GedcomParse {
 	}
 	
 	//shweta singh US 30 LIST living married
-	public void listLivingMarried() {
+	public boolean listLivingMarried() {
 		int count=1;
 		System.out.println("--------------Sprint 2-US30-List living married individuals-Shweta Singh----------------");
 		for (Individual person : individualList) {
@@ -527,10 +527,11 @@ public class GedcomParse {
 			
 			}
 		}
+		return true;
 	}
 	//shweta singh US 27 LIST individual ages
 	
-	public void individualAge() throws ParseException {
+	public boolean individualAge() throws ParseException {
 		
 		for (Individual person : individualList) {
 			int age =0;
@@ -564,6 +565,7 @@ public class GedcomParse {
 
 			person.setAge(age); //age is updated in individual table
 		}
+		return true;
 	}
 	
 	public void maleLastTime() {// shweta singh user story16
@@ -829,9 +831,73 @@ public class GedcomParse {
 		System.out.println();
 	}
 	
+	// Chengyi Zhang Sprint 2
+		// US08
+		public void birthBeforeMarriage() {
+			List<Individual> Anomaly = new ArrayList<>();
+			List<Integer> lnum = new ArrayList<>();
+			List<Family> fam = new ArrayList<>();
+			for(Family one : familyList) {
+				for(String ID: one.getChildren()) {
+					for(Individual person : individualList) {
+						if(person.getId().equals(ID)){
+							if(!checkOneDateAfterOneDateValid(person.getBirthday(),one.getMarried())) {
+								Anomaly.add(person);
+								lnum.add(person.getbirthdayLine());
+								fam.add(one);
+							}
+						}
+					}
+				}
+			}
+			for(int x=0;x<Anomaly.size();x++) {
+				System.out.println("ANOMALY: INDIVIDUAL: US08: "+lnum.get(x)+": "+Anomaly.get(x).getId()+": Has birthday "+Anomaly.get(x).getBirthday()
+						+ " before parents' marriage date "+ fam.get(x).getMarried());
+			}
+			if(Anomaly.size() == 0) {
+				System.out.println("Chengyi Zhang Sprint 2-NO ERROR-US08");
+			}
+		}
+		
+		// US32
+		public void multipleBirths() {
+			List<String> MB = new ArrayList<>();
+			List<Integer> lnum = new ArrayList<>();
+			boolean check = false;
+			String indi = null;
+			for(int i=0;i<dataGet.size();i++) {
+				String line = dataGet.get(i);
+				String[] words = line.split(" ");
+				if(words.length>2)
+				if(words[2].equals("INDI")) {
+					check = false;
+					indi = words[1];
+				}
+				if(words[1].equals("BIRT")) {
+					if(check) {
+						MB.add(indi);
+						lnum.add(i);
+						check = false;
+					}else {
+						check = true;
+					}
+				}
+			}
+			for(int x=0;x<MB.size();x++) {
+				System.out.println("ERROR: INDIVIDUAL: US32: "+lnum.get(x)+": "+MB.get(x)+": Has Multiple Birthdays");
+			}
+			if(MB.size() == 0) {
+				System.out.println("Chengyi Zhang Sprint 2-NO ERROR-US32");
+			}
+		}
+		
+		
+		// Chengyi Zhang part ends
+	
 	public static void main(String[] args) {
 		GedcomParse proj3 = new GedcomParse();
-		proj3.readFile("/Users/wenxuanwang/Desktop/testForSprint2.ged");
+		proj3.readFile("C:/Users/Shweta Singh/eclipse-workspace/AP 555/src/AP/OriginalGED.ged");
+		//proj3.readFile("C:/Users/Shweta Singh/Desktop/GedcomTestInput.ged");
 		proj3.writeIntoIndividualList();
 		proj3.writeIntofamilyList();
 		//proj3.display();
@@ -905,10 +971,10 @@ public class GedcomParse {
 		proj3.US04checkMDB(proj3.familyList);
 		
 //		
-//		//Shweta Singh US16 Male last names
+//		//Shweta Singh US16 Male last names sprint 2
 		proj3.maleLastTime();
 //		
-//		//Shweta Singh US29 List deceased
+//		//Shweta Singh US29 List deceased sprint 2
 		proj3.listDeceased();
 		
 		//Shweta Singh US30 List living married
@@ -918,6 +984,12 @@ public class GedcomParse {
 		proj3.checkDates();
 //		//Chengyi Zhang Story 2: For a family in which Divorce is NA, all members should share the same family name (Non-Chinese Families)
 		proj3.checkFName();
+		
+		//Sprint 2 Chengyi Zhang part
+		//US08: Birth before parents' marriage (Anomaly)
+		proj3.birthBeforeMarriage();
+		//US32: List multiple births
+		proj3.multipleBirths();
 	}
 }
 

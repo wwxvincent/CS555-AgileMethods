@@ -111,3 +111,14 @@ This Family got divorced.
 Family: Last Name is Wang
 This Family got divorced.
 
+Chengyi Zhang Sprint 2-NO ERROR-US08
+Chengyi Zhang Sprint 2-NO ERROR-US32
+
+//WENXUAN WANG SPRINT 1
+ERROR: INDIVIDUAL: US03: 138: I13: Died 1927-05-7 before born 1927-08-9
+ERROR: INDIVIDUAL: US03: 149: I14: Died 1911-07-21 before born 1929-06-10
+ERROR: FAMILY: US04: 312: F9: Divorced 1978-06-6 before married 1980-06-5
+
+//WENXUAN WANG SPRINT 2
+ERROR: FAMILY: US05: 259: F3: Married 1949-08-8 after husband's (I13) death on 1927-05-7
+ERROR: FAMILY: US05: 259: F3: Married 1949-08-8 after wife's (I14) death on 1911-07-21
