@@ -1,4 +1,4 @@
-package project3;
+package AP;
 //Author: Wenxuan Wang
 //Team Members: Wenxuan; Chengyi; Shweta
 //purpose: for CS555-project3:
@@ -11,12 +11,21 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import AP.Family;
+import AP.Individual;
 
 public class GedcomParse {
 	//fileds;
@@ -34,12 +43,10 @@ public class GedcomParse {
 	}
 	
 	//read the data from file;
-	public void readFile(String file) {
+	public void readFile(String filePath) {
 		//dataGet = new ArrayList<String>();
 		try {
-//			InputStream file = new FileInputStream("/Users/wenxuanwang/Desktop/My-Family-15-Feb-2020-387.ged");
-			//InputStream file = new FileInputStream("/Users/wenxuanwang/Desktop/testForSprint1.ged");
-			BufferedReader reader = new BufferedReader( new FileReader(file));
+			BufferedReader reader = new BufferedReader( new FileReader(filePath));
 			String str = null;
 			while(true) {
 				// read the gedcom line by line
@@ -112,16 +119,17 @@ public class GedcomParse {
 						//set the gender gedcom line info
 						int count =i;
 						individualList.get(individualList.size()-1).setgenderLine(count+1);
-					}else if(str[1].equals("BIRT")) {
+						
+					}else if(str[1].equals("BIRT")) { //check if string is BIRT
 						//then skip to the next line
 						int count = i;
 						String birthString = dataGet.get(++i);
 						String[] birthArray = birthString.split(" ");
 						//check the tag
-						if(birthArray[0].equals("2") && birthArray[1].equals("DATE")) {
-							String day = birthArray[2];
-							String month = birthArray[3];
-							String year = birthArray[4];
+						if(birthArray[0].equals("2") && birthArray[1].equals("DATE")) {//CREATE DATE FROM STRING
+							String day = birthArray[2]; //get day
+							String month = birthArray[3]; //get month
+							String year = birthArray[4]; //get year
 							
 							switch(month) {
 							case "JAN": month = "-01-"; break;
@@ -141,8 +149,8 @@ public class GedcomParse {
 							//get this person and set his/her birthday;
 							individualList.get(individualList.size()-1).setBirthday(year+month+day);
 							//set his/her age;
-							int age = 2020 - Integer.parseInt(year);
-							individualList.get(individualList.size()-1).setAge(age);
+							/*int age = 2020 - Integer.parseInt(year);
+							individualList.get(individualList.size()-1).setAge(age);*/
 							//set birthday ged line info
 							individualList.get(individualList.size()-1).setbirthdayLine(count+1);
 						}
@@ -210,6 +218,7 @@ public class GedcomParse {
 								individualList.get(individualList.size()-1).setDeath(year+month+day);
 								//set his/her isAlive;
 								individualList.get(individualList.size()-1).setAlive(false);
+								
 								//set the death info from the gedcom line;
 								int count = i;
 								individualList.get(individualList.size()-1).setdeathLine(count+1);
@@ -237,6 +246,7 @@ public class GedcomParse {
 	}
 	
 	public void writeIntofamilyList() {
+		
 		//tag 0: FAM
 		//tag 1: MARR; HUSB; WIFE; CHIL; DIV; 
 		for(int i = 0; i<dataGet.size();i++) {
@@ -398,9 +408,6 @@ public class GedcomParse {
 		//test
 		//System.out.println(deathStr);
 		//System.out.println(birthStr);
-		if(deathStr.length()<4 || birthStr.length()<4) {
-			System.out.println("lenght error");
-		}
 		String yearBirthStr = birthStr.substring(0,4);
 		String yearDeathStr = deathStr.substring(0,4);
 		int yearBirthInt = Integer.parseInt(yearBirthStr);
@@ -505,6 +512,60 @@ public class GedcomParse {
 									" before married "+family.getMarried());
 			}
 		}
+	}
+	
+	//shweta singh US 30 LIST living married
+	public boolean listLivingMarried() {
+		int count=1;
+		System.out.println("--------------Sprint 2-US30-List living married individuals-Shweta Singh----------------");
+		for (Individual person : individualList) {
+			if(!person.getSpouse().equals("NA")) {
+				if(person.getIsAlive()) {
+					System.out.println("Living married Individual: "+count+" "+person.getName());
+					count++;
+				}
+			
+			}
+		}
+		return true;
+	}
+	//shweta singh US 27 LIST individual ages
+	
+	public boolean individualAge() throws ParseException {
+		
+		for (Individual person : individualList) {
+			int age =0;
+			DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+			String bddate =person.getBirthday();//birthday
+			String byear = bddate.substring(0,4);
+			String bmonth = bddate.substring(5,7);
+			String bday = bddate.substring(8);
+			Date bdate = new SimpleDateFormat("MM/dd/yyyy").parse(bmonth+"/"+bday+"/"+byear);
+			//System.out.println(person.getBirthday()+"\t"+bdate);
+			
+			if(person.getDeath() != "NA") { //deathday
+				String sddate =person.getDeath();
+				String dyear = sddate.substring(0,4);
+				String dmonth = sddate.substring(5,7);
+				String dday = sddate.substring(8);//"dd/MM/yyyy"
+				Date ddate = new SimpleDateFormat("MM/dd/yyyy").parse(dmonth+"/"+dday+"/"+dyear);
+				
+			    int d1 = Integer.parseInt(formatter.format(bdate));                            
+			    int d2 = Integer.parseInt(formatter.format(ddate));                          
+			    age = (d2 - d1) / 10000; 
+			    //individualList.get(individualList.size()-1).setAge(age);
+			}
+			
+			else {
+				int d1 = Integer.parseInt(formatter.format(bdate));                            
+			    int d2 = Integer.parseInt(formatter.format(new Date()));                          
+			    age = (d2 - d1) / 10000;
+			    //System.out.println(age);
+			}
+
+			person.setAge(age); //age is updated in individual table
+		}
+		return true;
 	}
 	
 	public void maleLastTime() {// shweta singh user story16
@@ -719,59 +780,6 @@ public class GedcomParse {
 			System.out.println("This Family has no different family names.\n");
 		}
 	}
-	// Chengyi Zhang Sprint 2
-	// US08
-	public void birthBeforeMarriage() {
-		List<Individual> Anomaly = new ArrayList<>();
-		List<Integer> lnum = new ArrayList<>();
-		List<Family> fam = new ArrayList<>();
-		for(Family one : familyList) {
-			for(String ID: one.getChildren()) {
-				for(Individual person : individualList) {
-					if(person.getId().equals(ID)){
-						if(!checkOneDateAfterOneDateValid(person.getBirthday(),one.getMarried())) {
-							Anomaly.add(person);
-							lnum.add(person.getbirthdayLine());
-							fam.add(one);
-						}
-					}
-				}
-			}
-		}
-		for(int x=0;x<Anomaly.size();x++) {
-			System.out.println("ANOMALY: INDIVIDUAL: US08: "+lnum.get(x)+": "+Anomaly.get(x).getId()+": Has birthday "+Anomaly.get(x).getBirthday()
-					+ " before parents' marriage date "+ fam.get(x).getMarried());
-		}
-	}
-	// US32
-	public void multipleBirths() {
-		List<String> MB = new ArrayList<>();
-		List<Integer> lnum = new ArrayList<>();
-		boolean check = false;
-		String indi = null;
-		for(int i=0;i<dataGet.size();i++) {
-			String line = dataGet.get(i);
-			String[] words = line.split(" ");
-			if(words.length>2)
-			if(words[2].equals("INDI")) {
-				check = false;
-				indi = words[1];
-			}
-			if(words[1].equals("BIRT")) {
-				if(check) {
-					MB.add(indi);
-					lnum.add(i);
-					check = false;
-				}else {
-					check = true;
-				}
-			}
-		}
-		for(int x=0;x<MB.size();x++) {
-			System.out.println("ERROR: INDIVIDUAL: US32: "+lnum.get(x)+": "+MB.get(x)+": Has Multiple Birthdays");
-		}
-	}
-	
 	
 	// Chengyi Zhang part ends
 	public void display() {
@@ -823,13 +831,86 @@ public class GedcomParse {
 		System.out.println();
 	}
 	
+	// Chengyi Zhang Sprint 2
+		// US08
+		public void birthBeforeMarriage() {
+			List<Individual> Anomaly = new ArrayList<>();
+			List<Integer> lnum = new ArrayList<>();
+			List<Family> fam = new ArrayList<>();
+			for(Family one : familyList) {
+				for(String ID: one.getChildren()) {
+					for(Individual person : individualList) {
+						if(person.getId().equals(ID)){
+							if(!checkOneDateAfterOneDateValid(person.getBirthday(),one.getMarried())) {
+								Anomaly.add(person);
+								lnum.add(person.getbirthdayLine());
+								fam.add(one);
+							}
+						}
+					}
+				}
+			}
+			for(int x=0;x<Anomaly.size();x++) {
+				System.out.println("ANOMALY: INDIVIDUAL: US08: "+lnum.get(x)+": "+Anomaly.get(x).getId()+": Has birthday "+Anomaly.get(x).getBirthday()
+						+ " before parents' marriage date "+ fam.get(x).getMarried());
+			}
+			if(Anomaly.size() == 0) {
+				System.out.println("Chengyi Zhang Sprint 2-NO ERROR-US08");
+			}
+		}
+		
+		// US32
+		public void multipleBirths() {
+			List<String> MB = new ArrayList<>();
+			List<Integer> lnum = new ArrayList<>();
+			boolean check = false;
+			String indi = null;
+			for(int i=0;i<dataGet.size();i++) {
+				String line = dataGet.get(i);
+				String[] words = line.split(" ");
+				if(words.length>2)
+				if(words[2].equals("INDI")) {
+					check = false;
+					indi = words[1];
+				}
+				if(words[1].equals("BIRT")) {
+					if(check) {
+						MB.add(indi);
+						lnum.add(i);
+						check = false;
+					}else {
+						check = true;
+					}
+				}
+			}
+			for(int x=0;x<MB.size();x++) {
+				System.out.println("ERROR: INDIVIDUAL: US32: "+lnum.get(x)+": "+MB.get(x)+": Has Multiple Birthdays");
+			}
+			if(MB.size() == 0) {
+				System.out.println("Chengyi Zhang Sprint 2-NO ERROR-US32");
+			}
+		}
+		
+		
+		// Chengyi Zhang part ends
+	
 	public static void main(String[] args) {
 		GedcomParse proj3 = new GedcomParse();
-		proj3.readFile("Testcase_in_Overview.ged");
+		proj3.readFile("C:/Users/Shweta Singh/eclipse-workspace/AP 555/src/AP/OriginalGED.ged");
+		//proj3.readFile("C:/Users/Shweta Singh/Desktop/GedcomTestInput.ged");
 		proj3.writeIntoIndividualList();
 		proj3.writeIntofamilyList();
+		//proj3.display();
+		//System.out.println();
+		
+		//Shweta Singh US 27- list individual ages in table
+		try {
+			proj3.individualAge();
+		} catch (ParseException e) {
+			System.out.println("error:"+e.getMessage());
+		}
 		//
-		System.out.println("Individuals");
+		System.out.println("Individuals------------Shweta Singh US 27-Include individual ages-------------------------");
 		System.out.println("+-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+");
 		System.out.println("| ID  | Name               | Gender | Birthday  | Age | Alive | Death      | Child     | Spouse    |");
 		System.out.println("+-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+");
@@ -885,35 +966,31 @@ public class GedcomParse {
 		 * story 1: birth before death
 		 * story 2: Marriage before divorce
 		 */
-		//System.out.println();
-		//proj3.US03checkBBD(proj3.individualList);
-		//proj3.US04checkMDB(proj3.familyList);
+		System.out.println();
+		proj3.US03checkBBD(proj3.individualList);
+		proj3.US04checkMDB(proj3.familyList);
 		
+//		
+//		//Shweta Singh US16 Male last names sprint 2
+		proj3.maleLastTime();
+//		
+//		//Shweta Singh US29 List deceased sprint 2
+		proj3.listDeceased();
 		
-		//Shweta Singh US16 Male last names
-		//proj3.maleLastTime();
-		
-		//Shweta Singh US29 List deceased
-		//proj3.listDeceased();
-
+		//Shweta Singh US30 List living married
+		proj3.listLivingMarried();
+//
 		//Chengyi Zhang Story 1: All Dates must be valid
-		//proj3.checkDates();
-		//Chengyi Zhang Story 2: For a family in which Divorce is NA, all members should share the same family name (Non-Chinese Families)
-		//proj3.checkFName();
-		
-		
-		
-		
-		
-		
+		proj3.checkDates();
+//		//Chengyi Zhang Story 2: For a family in which Divorce is NA, all members should share the same family name (Non-Chinese Families)
+		proj3.checkFName();
 		
 		//Sprint 2 Chengyi Zhang part
 		//US08: Birth before parents' marriage (Anomaly)
 		proj3.birthBeforeMarriage();
 		//US32: List multiple births
 		proj3.multipleBirths();
-		
-		
-		
 	}
 }
+
+//	
