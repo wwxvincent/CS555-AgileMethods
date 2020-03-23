@@ -1,4 +1,4 @@
-package AP;
+package project3;
 //Author: Wenxuan Wang
 //Team Members: Wenxuan; Chengyi; Shweta
 //purpose: for CS555-project3:
@@ -24,6 +24,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import project3.Family;
+import project3.Individual;
+
 public class GedcomParse {
 	//fileds;
 	List<Individual> individualList;
@@ -43,10 +46,7 @@ public class GedcomParse {
 	public void readFile(String filePath) {
 		//dataGet = new ArrayList<String>();
 		try {
-//			InputStream file = new FileInputStream("/Users/wenxuanwang/Desktop/My-Family-15-Feb-2020-387.ged");
-			//InputStream file = new FileInputStream("C:/Users/Shweta Singh/eclipse-workspace/AP 555/src/AP/GedcomTestInput.ged");
-			InputStream file = new FileInputStream(filePath);
-			BufferedReader reader = new BufferedReader( new InputStreamReader(file));
+			BufferedReader reader = new BufferedReader( new FileReader(filePath));
 			String str = null;
 			while(true) {
 				// read the gedcom line by line
@@ -57,7 +57,7 @@ public class GedcomParse {
 					break;
 				}
 			}
-			file.close();
+			reader.close();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -401,7 +401,7 @@ public class GedcomParse {
 	 * story 1: birth before death
 	 * story 2: Marriage before divorce
 	 */
-	private boolean checkOneDateAfterOneDateValid(String deathStr, String birthStr) {
+	public boolean checkOneDateAfterOneDateValid(String deathStr, String birthStr) {
 		
 		boolean flag = false;
 		//convert birthStr to
@@ -780,12 +780,62 @@ public class GedcomParse {
 	}
 	
 	// Chengyi Zhang part ends
+	public void display() {
+		System.out.println("Individuals");
+		System.out.println("+-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+");
+		System.out.println("| ID  | Name               | Gender | Birthday  | Age | Alive | Death      | Child     | Spouse    |");
+		System.out.println("+-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+");
+		for (Individual person : individualList) {
+			 String child;
+			 if(!person.getChild().equals("NA")) {
+				 child = "{'"+person.getChild()+"'}";
+			 }else {
+				 child = "{'"+"NA"+"'}";
+			 }
+			 String spouse;
+			 if(!person.getSpouse().equals("NA")) {
+				 spouse = "{'"+person.getSpouse()+"'}";
+			 }else {
+				 spouse = "{'"+"NA"+"'}";
+			 }
+			System.out.printf("|%-5s|%-20s|%-8s|%-11s|%-5d|%-7b|%-12s|%-11s|%-11s|%n", 
+					person.getId(), person.getName(), person.getGender(), person.getBirthday(),
+					person.getAge(), person.getIsAlive(), person.getDeath(),  child  ,  spouse );
+		}
+		System.out.println("+-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+");
+		System.out.println();
+		System.out.println("Families");
+		System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
+		System.out.println("| ID  | Married    | Divorced   | Husband ID | Husband Name       | Wife ID   | Wife Name          |   Childern         |");
+		System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
+		for (Family family : familyList) {
+			String childString="";
+			if(!(family.getChildren()==null)) {
+				for(String child: family.getChildren()) {
+					//for test to debug
+					//System.out.println(child);
+					childString = childString+"','"+child;	
+				}
+				childString = childString.substring(2);
+				childString = "{"+childString+"'}";
+			}else {
+				childString = "{'"+"NA"+"'}";
+			}
+			System.out.printf("|%-5s|%-12s|%-12s|%-12s|%-20s|%-11s|%-20s|%-20s|%n",
+					family.getID(), family.getMarried(), family.getDivorced(), family.getHusbandID(), family.getHusbandName(),
+					family.getWifeID(), family.getWifeName(), childString);
+		}
+		System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
+		System.out.println();
+	}
 	
 	public static void main(String[] args) {
 		GedcomParse proj3 = new GedcomParse();
-		proj3.readFile("C:/Users/Shweta Singh/eclipse-workspace/AP 555/src/AP/My-Family-15-Feb-2020-387.ged");
+		proj3.readFile("/Users/wenxuanwang/Desktop/testForSprint2.ged");
 		proj3.writeIntoIndividualList();
 		proj3.writeIntofamilyList();
+		//proj3.display();
+		//System.out.println();
 		
 		//Shweta Singh US 27- list individual ages in table
 		try {
