@@ -1,4 +1,4 @@
-package AP;
+package project3;
 //Author: Wenxuan Wang
 //Team Members: Wenxuan; Chengyi; Shweta
 //purpose: for CS555-project3:
@@ -24,8 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import AP.Family;
-import AP.Individual;
+
 
 public class GedcomParse {
 	//fileds;
@@ -893,10 +892,88 @@ public class GedcomParse {
 		
 		
 		// Chengyi Zhang part ends
+		/*
+		 *  Wenxuan Wang part for Sprint2
+		 */
+		public void testUS05() {
+			//check: Marriage before death;
+			for(Family one: familyList) {	//check every single family one
+				//if this family married , then do next;
+				if(!one.getMarried().equals("NA")) {
+					String marrStr = one.getMarried();	//get the married date
+					//System.out.println(marrStr);
+					//get husband and wife ID, then find them.
+					String husbandID = one.getHusbandID();
+					String wifeID = one.getWifeID();
+					Individual husband = individualMap.get(husbandID);
+					Individual wife = individualMap.get(wifeID);
+					//check if one of then dead, then print the error message;
+					if(!husband.getDeath().equals("NA")) {
+						String husbandDeath = husband.getDeath();
+						//System.out.println(husbandDeath);
+						if(!checkOneDateAfterOneDateValid(husbandDeath, marrStr)) {
+							System.out.println("ERROR: FAMILY: US05: "+one.getmarriedLine()+
+									": "+one.getID()+": Married "+one.getMarried()
+									+" after husband's ("+husbandID+") death on "
+									+husband.getDeath());
+						}
+					}
+					if(!wife.getDeath().equals("NA")) {
+						String wifeDeath = wife.getDeath();
+						if(!checkOneDateAfterOneDateValid(wifeDeath, marrStr)) {
+							System.out.println("ERROR: FAMILY: US05: "+one.getmarriedLine()+
+									": "+one.getID()+": Married "+one.getMarried()
+									+" after wife's ("+wifeID+") death on "
+									+wife.getDeath());
+						}
+					}
+				}
+			}
+		}
+		
+		public void testUS06() {
+			//check: Divorce before death
+			//Divorce can only occur before death of both spouses
+			for(Family one: familyList) {
+				// if this family divorced, then do next
+				if(!one.getDivorced().equals("NA")) {
+					//get the divorced date
+					String divStr = one.getDivorced();
+					//then find this couple
+					String husbandID = one.getHusbandID();
+					String wifeID = one.getWifeID();
+					Individual husband = individualMap.get(husbandID);
+					Individual wife = individualMap.get(wifeID);
+					
+					//check one of they dead or not, 
+					//if yes, then check the date valid or not
+					//if yes, then print the error message;
+					if(!husband.getDeath().equals("NA")) {
+						String husbandDeath = husband.getDeath();
+						if(!checkOneDateAfterOneDateValid(husbandDeath, divStr)) {
+							System.out.println("ERROR: FAMILY: US06: "+one.getmarriedLine()
+												+": "+one.getID()+": Divorced "+one.getDivorced()
+												+" after husband's ("+husbandID+") death on "
+												+husbandDeath);
+						}
+					}
+					if(!wife.getDeath().equals("NA")) {
+						String wifeDeath = husband.getDeath();
+						if(!checkOneDateAfterOneDateValid(wifeDeath, divStr)) {
+							System.out.println("ERROR: FAMILY: US06: "+one.getmarriedLine()
+												+": "+one.getID()+": Divorced "+one.getDivorced()
+												+" after wife's ("+wifeID+") death on "
+												+wifeDeath);
+						}
+					}
+				}
+			}	
+		}
+		//--------Wenxuan part sprint2 end--------------
 	
 	public static void main(String[] args) {
 		GedcomParse proj3 = new GedcomParse();
-		proj3.readFile("C:/Users/Shweta Singh/eclipse-workspace/AP 555/src/AP/OriginalGED.ged");
+		proj3.readFile("/Users/wenxuanwang/Desktop/testForSprint2.ged");
 		//proj3.readFile("C:/Users/Shweta Singh/Desktop/GedcomTestInput.ged");
 		proj3.writeIntoIndividualList();
 		proj3.writeIntofamilyList();
@@ -962,13 +1039,15 @@ public class GedcomParse {
 		 */
 		
 		/**
-		 * for sprint 1 Wenxuan Wang part
+		 * for sprint  Wenxuan Wang part
 		 * story 1: birth before death
 		 * story 2: Marriage before divorce
 		 */
 		System.out.println();
 		proj3.US03checkBBD(proj3.individualList);
 		proj3.US04checkMDB(proj3.familyList);
+		proj3.testUS05();
+		proj3.testUS06();
 		
 //		
 //		//Shweta Singh US16 Male last names sprint 2
