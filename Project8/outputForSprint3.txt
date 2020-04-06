@@ -46,6 +46,8 @@ Families
 |F9   |1980-06-5   |1978-06-6   |I22         | Yong /Chen/        |I23        | Huhu /Xiong/       |{'I26','I27'}       |
 +-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+
 
+
+
 ERROR: INDIVIDUAL: US03: 138: I13: Died 1927-05-7 before born 1927-08-9
 ERROR: INDIVIDUAL: US03: 149: I14: Died 1911-07-21 before born 1929-06-10
 ERROR: FAMILY: US04: 350: F9: Divorced 1978-06-6 before married 1980-06-5
@@ -60,3 +62,121 @@ ANOMALY: FAMILY: US08: 285: F2: Child I10 born 1969-07-7 before marriage on 2000
 ANOMALY: FAMILY: US08: 285: F2: Child I25 born 2000-05-5 before marriage on 2000-06-8
 ANOMALY: FAMILY: US08: 350: F9: Child I26 born 2001-04-3 after divorce on 1978-06-6
 ANOMALY: FAMILY: US08: 350: F9: Child I27 born 2001-04-3 after divorce on 1978-06-6
+
+-------------Sprint 1-US16-Male last names-Shweta Singh---------------
+
+
+ERROR: FAMILY: US16: 495: F2: Surname does not match for child: I24 :  Wenwen Zha
+
+ERROR: FAMILY: US16: 495: F2: Surname does not match for child: I25 :  Yam Hu
+
+--------------Sprint 1-US29-List deceased-Shweta Singh----------------
+
+Deceased Person: GuangSheng Wang
+Deceased Person: Diedie Wang
+Deceased Person: Jiajia Yao
+Deceased Person: Zhen Hu
+
+--------------Sprint 2-US30-List living married individuals-Shweta Singh----------------
+
+Living married Individual: 1  Mingxiang /Wang/
+Living married Individual: 2  Qiuxiang /Wang/
+Living married Individual: 3  Xiaonian /Jiang/
+Living married Individual: 4  Minghua /Wang/
+Living married Individual: 5  Qiaoping /Zhang/
+Living married Individual: 6  Mingzheng /Wang/
+Living married Individual: 7  Li /Chen/
+Living married Individual: 8  Chuanpeng /Wang/
+Living married Individual: 9  Jinghua /Du/
+Living married Individual: 10  Ha /Chen/
+Living married Individual: 11  Suibian /Chen/
+Living married Individual: 12  Yong /Chen/
+Living married Individual: 13  Huhu /Xiong/
+
+--------------Sprint 3-US31-List living single individuals-Shweta Singh----------------
+
+Living single individual: 1  Yinling /Wang/
+Living single individual: 2  Fei /Wang/
+Living single individual: 3  Jiangxun /Wang/
+
+--------------Sprint 3-US38-List upcoming birthday-Shweta Singh----------------
+
+Upcoming birthday: 1 = Jinghua /Du/ 1962-04-9
+Upcoming birthday: 2 = Ha /Chen/ 1920-05-5
+Upcoming birthday: 3 = Yam /Hu/ 2000-05-5
+
+-----------------Sprint 1 Chengyi Zhang story 1:------------------------
+All Dates must be valid
+
+Individual Date Error List:
++-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+
+| ID  | Name               | Gender | Birthday  | Age | Alive | Death      | Child     | Spouse    |
++-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+
+|I1   | Wenxuan /Wang/     |M       |2030-10-1  |-10  |true   |NA          |{'F1'}     |NA         |
+|I2   | Mingxiang /Wang/   |M       |1967-06-30 |52   |true   |NA          |{'F2'}     |{'F1'}     |
+|I3   | Qiuxiang /Wang/    |F       |1966-07-13 |53   |true   |NA          |{'F3'}     |{'F1'}     |
+|I5   | Xiaonian /Jiang/   |F       |1930-10-1  |89   |true   |NA          |NA         |{'F2'}     |
+|I6   | Minghua /Wang/     |M       |1957-05-10 |62   |true   |NA          |{'F2'}     |{'F4'}     |
+|I7   | Yinling /Wang/     |F       |1986-08-15 |33   |true   |NA          |{'F4'}     |NA         |
+|I8   | Qiaoping /Zhang/   |F       |1960-06-9  |59   |true   |NA          |NA         |{'F4'}     |
+|I9   | Qiling /Wang/      |M       |2024-10-8  |-4   |true   |NA          |{'F4'}     |NA         |
+|I10  | Mingzheng /Wang/   |F       |1969-07-7  |50   |true   |NA          |{'F2'}     |{'F5'}     |
+|I11  | Jiecheng /Chen/    |F       |1992-06-7  |27   |true   |NA          |{'F5'}     |NA         |
+|I12  | Li /Chen/          |M       |1967-07-13 |52   |true   |NA          |{'F6'}     |{'F5'}     |
+|I15  | Chuanpeng /Wang/   |M       |1955-06-6  |64   |true   |NA          |{'F3'}     |{'F8'}     |
+|I16  | Fei /Wang/         |M       |1982-08-9  |37   |true   |NA          |{'F7'}     |NA         |
+|I18  | Jiangxun /Wang/    |M       |1988-09-9  |31   |true   |NA          |{'F8'}     |NA         |
+|I19  | Jinghua /Du/       |F       |1962-04-9  |57   |true   |NA          |NA         |{'F8'}     |
+|I20  | Ha /Chen/          |M       |1920-05-5  |99   |true   |NA          |NA         |{'F6'}     |
+|I21  | Suibian /Chen/     |F       |1921-08-4  |98   |true   |NA          |NA         |{'F6'}     |
+|I22  | Yong /Chen/        |M       |1955-03-12 |65   |true   |NA          |{'F6'}     |{'F9'}     |
+|I23  | Huhu /Xiong/       |F       |1958-08-10 |61   |true   |NA          |NA         |{'F9'}     |
+|I24  | Wenwen /Zha/       |M       |2001-07-7  |18   |true   |NA          |{'F2'}     |NA         |
+|I25  | Yam /Hu/           |M       |2000-05-5  |19   |true   |NA          |{'F2'}     |NA         |
+|I26  | Bu /Chen/          |M       |2001-04-3  |19   |true   |NA          |{'F9'}     |NA         |
+|I27  | Xue /Chen/         |F       |2001-04-3  |19   |true   |NA          |{'F9'}     |NA         |
++-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+
+
+No Date Error in Family List.
+
+
+---------------Sprint 1 Chengyi Zhang Story 2:----------------
+For a family in which Divorce is NA, all members should share the same family name (Non-Chinese Families)
+
+Family: Last Name is Wang
+This Family got divorced.
+
+Family: Last Name is Wang
+This Family got divorced.
+
+Family: Last Name is Wang
+This Family is not divorced.
+This Family has different family names.
+
+Family: Last Name is Wang
+This Family got divorced.
+
+Family: Last Name is Chen
+This Family got divorced.
+
+Family: Last Name is Chen
+This Family got divorced.
+
+Family: Last Name is Wang
+This Family got divorced.
+
+Family: Last Name is Wang
+This Family got divorced.
+
+Family: Last Name is Chen
+This Family is not divorced.
+This Family has different family names.
+
+ANOMALY: INDIVIDUAL: US08: 29: I2: Has birthday 1967-06-30 before parents' marriage date 2000-06-8
+ANOMALY: INDIVIDUAL: US08: 69: I6: Has birthday 1957-05-10 before parents' marriage date 2000-06-8
+ANOMALY: INDIVIDUAL: US08: 106: I10: Has birthday 1969-07-7 before parents' marriage date 2000-06-8
+ANOMALY: INDIVIDUAL: US08: 250: I25: Has birthday 2000-05-5 before parents' marriage date 2000-06-8
+Chengyi Zhang Sprint 2-NO ERROR-US32
+
+
+
