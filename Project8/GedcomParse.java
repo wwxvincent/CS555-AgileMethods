@@ -145,7 +145,7 @@ public class GedcomParse {
 							SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY");
 							int yearNow = Integer.parseInt(dateFormat.format(date));
 							int age = yearNow - Integer.parseInt(year);
-							individualList.get(individualList.size()-1).setAge(age);
+							//individualList.get(individualList.size()-1).setAge(age);
 							//set birthday ged line info
 							individualList.get(individualList.size()-1).setbirthdayLine(count+1);
 						}
