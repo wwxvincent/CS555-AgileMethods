@@ -1,4 +1,5 @@
-Individuals
+
+Individuals------------Sprint2 - Shweta Singh US 27-Include individual ages-------------------------
 +-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+
 | ID  | Name               | Gender | Birthday  | Age | Alive | Death      | Child     | Spouse    |
 +-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+
@@ -101,9 +102,9 @@ Living single individual: 3  Jiangxun /Wang/
 
 --------------Sprint 3-US38-List upcoming birthday-Shweta Singh----------------
 
-Upcoming birthday: 1 = Jinghua /Du/ 1962-04-9
-Upcoming birthday: 2 = Ha /Chen/ 1920-05-5
-Upcoming birthday: 3 = Yam /Hu/ 2000-05-5
+Upcoming birthday: 1 = Jinghua /Du/ 2020-04-9
+Upcoming birthday: 2 = Ha /Chen/ 2020-05-5
+Upcoming birthday: 3 = Yam /Hu/ 2020-05-5
 
 -----------------Sprint 1 Chengyi Zhang story 1:------------------------
 All Dates must be valid
