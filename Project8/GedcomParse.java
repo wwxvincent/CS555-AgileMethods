@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import AP.Family;
 import AP.Individual;
 
 
@@ -630,90 +631,105 @@ public class GedcomParse {
 				
 			return true;
 		}
-	//shweta singh US 27 LIST individual ages
-	
-	public boolean individualAge() throws ParseException {
 		
-		for (Individual person : individualList) {
-			int age =0;
-			DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
-			String bddate =person.getBirthday();//birthday
-			String byear = bddate.substring(0,4);
-			String bmonth = bddate.substring(5,7);
-			String bday = bddate.substring(8);
-			Date bdate = new SimpleDateFormat("MM/dd/yyyy").parse(bmonth+"/"+bday+"/"+byear);
-			//System.out.println(person.getBirthday()+"\t"+bdate);
-			
-			if(person.getDeath() != "NA") { //deathday
-				String sddate =person.getDeath();
-				String dyear = sddate.substring(0,4);
-				String dmonth = sddate.substring(5,7);
-				String dday = sddate.substring(8);//"dd/MM/yyyy"
-				Date ddate = new SimpleDateFormat("MM/dd/yyyy").parse(dmonth+"/"+dday+"/"+dyear);
+		//shweta singh US 30 LIST living married
+		public boolean listLivingMarried() {
+			int count=1;
+			System.out.println("\n--------------Sprint 2-US30-List living married individuals-Shweta Singh----------------\n");
+			for (Individual person : individualList) {
+				if(!person.getSpouse().equals("NA")) {
+					if(person.getIsAlive()) {
+						System.out.println("Living married Individual: "+count+" "+person.getName());
+						count++;
+					}
 				
-			    int d1 = Integer.parseInt(formatter.format(bdate));                            
-			    int d2 = Integer.parseInt(formatter.format(ddate));                          
-			    age = (d2 - d1) / 10000; 
-			    //individualList.get(individualList.size()-1).setAge(age);
+				}
 			}
-			
-			else {
-				int d1 = Integer.parseInt(formatter.format(bdate));                            
-			    int d2 = Integer.parseInt(formatter.format(new Date()));                          
-			    age = (d2 - d1) / 10000;
-			    //System.out.println(age);
-			}
-
-			person.setAge(age); //age is updated in individual table
+			return true;
 		}
-		return true;
-	}
-	
-	public void maleLastTime() {// shweta singh user story16
+		//shweta singh US 27 LIST individual ages
 		
-		System.out.println("\n-------------Sprint 1-US16-Male last names-Shweta Singh---------------\n");
-		for (Family family : familyList) {
-			//System.out.print("\nFamily Last name: ");
-			String lastName="";
-			if(!(family.getChildren()==null)) {
-				lastName = (family.getHusbandName().split("/"))[1].trim();
-				//System.out.print(lastName+"\n");
-				for(String child: family.getChildren()) {
-					//childLastName = child
-					//System.out.print("Child surname: ");
-					for(Individual person : individualList) {
-						String childName = (person.getName().split("/"))[1].trim();
-						String personName = person.getName().replace("/", "");
-						
-						if(person.getId().equals(child) && person.getGender().equals("M")) {
-							if(lastName.equals(childName)) {
-								
-								//true
-								//System.out.print(childName+"\n");
-							}
-							else {
-								System.out.println("\nERROR: FAMILY: US16: 495: "+family.getID()+": "+
-							"Surname does not match for child: "+person.getId()+" : "+personName);
+		public boolean individualAge() throws ParseException {
+			
+			for (Individual person : individualList) {
+				int age =0;
+				DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+				String bddate =person.getBirthday();//birthday
+				String byear = bddate.substring(0,4);
+				String bmonth = bddate.substring(5,7);
+				String bday = bddate.substring(8);
+				Date bdate = new SimpleDateFormat("MM/dd/yyyy").parse(bmonth+"/"+bday+"/"+byear);
+				//System.out.println(person.getBirthday()+"\t"+bdate);
+				
+				if(person.getDeath() != "NA") { //deathday
+					String sddate =person.getDeath();
+					String dyear = sddate.substring(0,4);
+					String dmonth = sddate.substring(5,7);
+					String dday = sddate.substring(8);//"dd/MM/yyyy"
+					Date ddate = new SimpleDateFormat("MM/dd/yyyy").parse(dmonth+"/"+dday+"/"+dyear);
+					
+				    int d1 = Integer.parseInt(formatter.format(bdate));                            
+				    int d2 = Integer.parseInt(formatter.format(ddate));                          
+				    age = (d2 - d1) / 10000; 
+				    //individualList.get(individualList.size()-1).setAge(age);
+				}
+				
+				else {
+					int d1 = Integer.parseInt(formatter.format(bdate));                            
+				    int d2 = Integer.parseInt(formatter.format(new Date()));                          
+				    age = (d2 - d1) / 10000;
+				    //System.out.println(age);
+				}
+
+				person.setAge(age); //age is updated in individual table
+			}
+			return true;
+		}
+		
+		public void maleLastTime() {// shweta singh user story16
+			
+			System.out.println("\n-------------Sprint 1-US16-Male last names-Shweta Singh---------------\n");
+			for (Family family : familyList) {
+				//System.out.print("\nFamily Last name: ");
+				String lastName="";
+				if(!(family.getChildren()==null)) {
+					lastName = (family.getHusbandName().split("/"))[1].trim();
+					//System.out.print(lastName+"\n");
+					for(String child: family.getChildren()) {
+						//childLastName = child
+						//System.out.print("Child surname: ");
+						for(Individual person : individualList) {
+							String childName = (person.getName().split("/"))[1].trim();
+							String personName = person.getName().replace("/", "");
+							
+							if(person.getId().equals(child) && person.getGender().equals("M")) {
+								if(lastName.equals(childName)) {
+									
+									//true
+									//System.out.print("NO ERROR");
+								}
+								else {
+									System.out.println("\nERROR: FAMILY: US16: 495: "+family.getID()+": "+
+								"Surname does not match for child: "+person.getId()+" : "+personName);
+								}
 							}
 						}
 					}
 				}
 			}
 		}
-	}
-	
-	public void listDeceased() {// shweta singh user story16
+		
+		public void listDeceased() {// shweta singh user story16
 
-		System.out.println("\n--------------Sprint 1-US29-List deceased-Shweta Singh----------------\n");
-		for (Individual person : individualList) {
-			 String listDece="";
-			 if(person.getIsAlive() == false) {
-				 listDece = person.getName();
-				 System.out.println("Deceased Person: "+listDece.replace("/", "").trim());
-			 }
+			System.out.println("\n--------------Sprint 1-US29-List deceased-Shweta Singh----------------\n");
+			for (Individual person : individualList) {
+				 String listDece="";
+				 if(person.getIsAlive() == false) {
+					 listDece = person.getName();
+					 System.out.println("Deceased Person: "+listDece.replace("/", "").trim());
+				 }
+			}
 		}
-	}
-	
 	//Sprint 1 Chengyi Zhang part
 	
 	public boolean isValid(String datestr){
