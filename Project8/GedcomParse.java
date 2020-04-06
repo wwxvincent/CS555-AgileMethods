@@ -18,11 +18,14 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import AP.Individual;
 
 
 
@@ -576,21 +579,57 @@ public class GedcomParse {
 	//--------Wenxuan part sprint2 end--------------
 	//############### Wenxuan Wang part Done!!!###############
 	
-	//shweta singh US 30 LIST living married
-	public boolean listLivingMarried() {
-		int count=1;
-		System.out.println("--------------Sprint 2-US30-List living married individuals-Shweta Singh----------------");
-		for (Individual person : individualList) {
-			if(!person.getSpouse().equals("NA")) {
-				if(person.getIsAlive()) {
-					System.out.println("Living married Individual: "+count+" "+person.getName());
+	
+	
+	//shweta singh US38 List upcoming birthdays
+		//List all living people in a GEDCOM file whose birthdays occur in the next 30 days
+		public boolean listUpcomingBirth() throws ParseException {
+			
+			int count = 1;
+			System.out.println("\n--------------Sprint 3-US38-List upcoming birthday-Shweta Singh----------------\n");
+			for (Individual person : individualList) {
+				
+				int age =0;
+				DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+				Date currentDate = new Date();
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(currentDate);
+				String bddate =person.getBirthday();//birthday
+				String byear = String.valueOf(calendar.get(Calendar.YEAR));
+				String bmonth = bddate.substring(5,7);
+				String bday = bddate.substring(8);
+				Date bdate = new SimpleDateFormat("MM/dd/yyyy").parse(bmonth+"/"+bday+"/"+byear);
+				
+				System.out.println(bdate);
+				
+				if(bdate.getTime() > currentDate.getTime() && bdate.getTime() < (currentDate.getTime() + 30) ) {
+					System.out.println("Upcoming birthday: "+count+"="+person.getName());
 					count++;
 				}
-			
 			}
+			
+			return true;
+			
 		}
-		return true;
-	}
+		
+		//shweta singh US31 List living single 
+		//List all living people over 30 who have never been married in a GEDCOM file
+
+		public boolean listLivingSingle(){
+			int count = 1;
+			System.out.println("\n--------------Sprint 3-US31-List living single individuals-Shweta Singh----------------\n");
+			for (Individual person : individualList) {  
+				if(person.getSpouse().equals("NA")) {
+					if(person.getIsAlive() && person.getAge() > 30) {
+						System.out.println("Living single individual: "+count+" "+person.getName());
+						count++;
+					}
+				
+				}
+			}
+				
+			return true;
+		}
 	//shweta singh US 27 LIST individual ages
 	
 	public boolean individualAge() throws ParseException {
