@@ -600,7 +600,7 @@ public class GedcomParse {
 				String bday = bddate.substring(8);
 				Date bdate = new SimpleDateFormat("MM/dd/yyyy").parse(bmonth+"/"+bday+"/"+byear);
 				
-				System.out.println(bdate);
+				//System.out.println(bdate);
 				
 				if(bdate.getTime() > currentDate.getTime() && bdate.getTime() < (currentDate.getTime() + 30) ) {
 					System.out.println("Upcoming birthday: "+count+"="+person.getName());
