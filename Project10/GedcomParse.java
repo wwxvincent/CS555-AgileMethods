@@ -726,7 +726,68 @@ public class GedcomParse {
 	
 	
 	
-	//shweta singh US38 List upcoming birthdays
+	
+	
+		//shweta singh US21 - Correct gender for role
+		public boolean checkGender() {
+			
+			System.out.println("\n-------------Sprint 4-US15-correct gender roles-Shweta Singh---------------\n");
+			for (Family family : familyList) {
+				Boolean foundhusbID = false;
+				Boolean foundwifeID = false;
+				
+						for(Individual person : individualList) {
+							
+								if(family.getHusbandID().equals(person.getId())) {
+									if(person.getGender().equals("M")) {
+										//System.out.print("\nhusb id matched "+person.getId() + family.getHusbandID());
+										foundhusbID  = true;
+									}
+									else foundhusbID = false;
+								}
+							
+								
+								if(family.getWifeID().equals(person.getId())) {
+									if(person.getGender().equals("F")) {
+										//System.out.print("\nwife id matched " + person.getId() + family.getWifeID());
+										foundwifeID = true;
+									}
+									else foundwifeID = false;
+								}
+								
+								
+						}
+						if(foundhusbID && foundwifeID) {
+							//System.out.print("\nID didn't match "+ family.getHusbandID());
+						}	
+						else System.out.print("\nERROR: FAMILY: US21: 519: "+family.getID()+ ": THIS FAMILY HAS INCORRECT HUSBAND/WIFE GENDER");
+			}
+			
+			
+			return true;
+		}
+								
+		
+		
+		//shweta singh US15 fewer than 15 sibling
+		public boolean checkFewerSibling() {
+			
+			for(Family family : familyList) {
+				int count =0;
+				if(!(family.getChildren()==null)) {
+					for(String child: family.getChildren()) {
+						count++;
+					}
+				}
+				if(count>14) {
+					System.out.println("ERROR: FAMILY: US15: 560: "+family.getID()+": FAMILY HAS MORE THAN 14 CHILDREN");
+					return false;
+				}
+			}
+			return true;
+		}
+		
+		//shweta singh US38 List upcoming birthdays
 		//List all living people in a GEDCOM file whose birthdays occur in the next 30 days
 		public boolean listUpcomingBirth() throws ParseException {
 			
