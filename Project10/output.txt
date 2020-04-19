@@ -1,0 +1,90 @@
+Individuals
++-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+
+| ID  | Name               | Gender | Birthday  | Age | Alive | Death      | Child     | Spouse    |
++-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+
+|I1   | Wenxuan /Wang/     |M       |2030-10-1  |-10  |true   |NA          |{'F1'}     |{'NA'}     |
+|I2   | Mingxiang /Wang/   |M       |1967-06-30 |53   |true   |NA          |{'F2'}     |{'F1'}     |
+|I3   | Qiuxiang /Wang/    |F       |1966-07-13 |54   |true   |NA          |{'F3'}     |{'F1'}     |
+|I4   | GuangSheng /Wang/  |M       |1930-10-10 |54   |false  |1984-07-15  |{'NA'}     |{'F2'}     |
+|I5   | Xiaonian /Jiang/   |F       |1930-10-1  |90   |true   |NA          |{'NA'}     |{'F2'}     |
+|I6   | Minghua /Wang/     |M       |1957-05-10 |63   |true   |NA          |{'F2'}     |{'F4'}     |
+|I7   | Yinling /Wang/     |F       |1986-08-15 |34   |true   |NA          |{'F4'}     |{'NA'}     |
+|I8   | Qiaoping /Zhang/   |M       |1960-06-9  |60   |true   |NA          |{'NA'}     |{'F4'}     |
+|I9   | Qiling /Wang/      |M       |2024-10-8  |-4   |true   |NA          |{'F4'}     |{'NA'}     |
+|I10  | Mingzheng /Wang/   |F       |1860-07-7  |160  |true   |NA          |{'F2'}     |{'F5'}     |
+|I11  | Jiecheng /Chen/    |F       |1992-06-7  |28   |true   |NA          |{'F5'}     |{'NA'}     |
+|I12  | Li /Chen/          |M       |1967-07-13 |53   |true   |NA          |{'F6'}     |{'F5'}     |
+|I13  | Diedie /Wang/      |M       |1927-08-9  |0    |false  |1927-05-7   |{'NA'}     |{'F3'}     |
+|I14  | Jiajia /Yao/       |F       |1929-06-10 |-18  |false  |1911-07-21  |{'NA'}     |{'F3'}     |
+|I15  | Chuanpeng /Wang/   |M       |1955-06-6  |65   |true   |NA          |{'F3'}     |{'F8'}     |
+|I16  | Fei /Wang/         |M       |1982-08-9  |38   |true   |NA          |{'F7'}     |{'NA'}     |
+|I17  | Zhen /Hu/          |F       |1960-08-8  |160  |false  |2120-06-12  |{'NA'}     |{'F7'}     |
+|I18  | Jiangxun /Wang/    |M       |1988-09-9  |32   |true   |NA          |{'F8'}     |{'NA'}     |
+|I19  | Jinghua /Du/       |F       |1962-04-9  |58   |true   |NA          |{'NA'}     |{'F8'}     |
+|I20  | Ha /Chen/          |M       |1920-05-5  |100  |true   |NA          |{'NA'}     |{'F6'}     |
+|I21  | Suibian /Chen/     |F       |1921-08-4  |99   |true   |NA          |{'NA'}     |{'F6'}     |
+|I22  | Yong /Chen/        |M       |1955-03-12 |65   |true   |NA          |{'F6'}     |{'NA'}     |
+|I23  | Huhu /Xiong/       |F       |1958-08-10 |62   |true   |NA          |{'NA'}     |{'NA'}     |
+|I24  | Wenwen /Zha/       |M       |1975-07-7  |45   |true   |NA          |{'F2'}     |{'F10'}    |
+|I25  | Yam /Hu/           |M       |2000-05-5  |20   |true   |NA          |{'F2'}     |{'NA'}     |
+|I26  | Bu /Chen/          |M       |2001-04-3  |19   |true   |NA          |{'F9'}     |{'F9'}     |
+|I27  | Xue /Chen/         |F       |2001-04-3  |19   |true   |NA          |{'F9'}     |{'F9'}     |
+|I28  | Zha /Qiong/        |M       |2008-08-4  |12   |true   |NA          |{'F10'}    |{'NA'}     |
+|I29  | Xu /Zhou/          |M       |1975-09-5  |45   |true   |NA          |{'NA'}     |{'F10'}    |
+|I30  | Er /Zha/           |F       |2009-04-4  |11   |true   |NA          |{'F10'}    |{'NA'}     |
+|I31  | San /Zha/          |F       |2010-04-4  |10   |true   |NA          |{'F10'}    |{'NA'}     |
+|I32  | Zha /Zha/          |M       |2009-04-3  |11   |true   |NA          |{'F10'}    |{'NA'}     |
+|I33  | Sa /Zha/           |F       |2010-04-3  |10   |true   |NA          |{'F10'}    |{'NA'}     |
+|I34  | Sd /Zha/           |M       |2012-05-3  |8    |true   |NA          |{'F10'}    |{'NA'}     |
+|I35  | Ju /Zha/           |F       |2015-05-3  |5    |true   |NA          |{'F10'}    |{'NA'}     |
+|I36  | Sk /Zha/           |M       |2010-06-4  |10   |true   |NA          |{'F10'}    |{'NA'}     |
+|I37  | Nan /Zha/          |F       |2015-04-3  |5    |true   |NA          |{'F10'}    |{'NA'}     |
+|I38  | Nv /Zha/           |F       |2019-04-4  |1    |true   |NA          |{'F10'}    |{'NA'}     |
+|I39  | Wu /Zha/           |F       |2018-07-4  |2    |true   |NA          |{'F10'}    |{'NA'}     |
+|I40  | Si /Zha/           |F       |2017-05-3  |3    |true   |NA          |{'F10'}    |{'NA'}     |
+|I41  | Thr /Zha/          |M       |2016-04-4  |4    |true   |NA          |{'F10'}    |{'NA'}     |
+|I42  | Yu /Zha/           |M       |2014-05-3  |6    |true   |NA          |{'F10'}    |{'NA'}     |
+|I43  | Laoda /Zha/        |F       |2009-05-5  |11   |true   |NA          |{'F10'}    |{'NA'}     |
+|I44  | Laoer /Zha/        |M       |2011-04-5  |9    |true   |NA          |{'F10'}    |{'NA'}     |
++-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+
+
+Families
++-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+
+| ID  | Married    | Divorced   | Husband ID | Husband Name       | Wife ID   | Wife Name          |   Childern         |
++-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+
+|F1   |1989-06-9   |NA          |I2          | Mingxiang /Wang/   |I3         | Qiuxiang /Wang/    |{'I1'}              |
+|F2   |2000-06-8   |NA          |I4          | GuangSheng /Wang/  |I5         | Xiaonian /Jiang/   |{'I2','I6','I10','I24','I25'}|
+|F3   |1949-08-8   |2020-06-9   |I13         | Diedie /Wang/      |I14        | Jiajia /Yao/       |{'I3','I15'}        |
+|F4   |1984-09-14  |NA          |I6          | Minghua /Wang/     |I8         | Qiaoping /Zhang/   |{'I7','I9'}         |
+|F5   |1988-09-11  |NA          |I12         | Li /Chen/          |I10        | Mingzheng /Wang/   |{'I11'}             |
+|F6   |1940-06-4   |NA          |I20         | Ha /Chen/          |I21        | Suibian /Chen/     |{'I12','I22'}       |
+|F7   |1978-03-14  |NA          |I15         | Chuanpeng /Wang/   |I17        | Zhen /Hu/          |{'I16'}             |
+|F8   |1986-07-8   |NA          |I15         | Chuanpeng /Wang/   |I19        | Jinghua /Du/       |{'I18'}             |
+|F9   |1980-06-5   |1978-06-6   |I26         | Bu /Chen/          |I27        | Xue /Chen/         |{'I26','I27'}       |
+|F10  |1985-06-10  |NA          |I29         | Xu /Zhou/          |I24        | Wenwen /Zha/       |{'I28','I30','I31','I32','I33','I34','I35','I36','I37','I38','I39','I40','I41','I42','I43','I44'}|
++-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+
+
+ERROR: INDIVIDUAL: US03: 138: I13: Died 1927-05-7 before born 1927-08-9
+ERROR: INDIVIDUAL: US03: 149: I14: Died 1911-07-21 before born 1929-06-10
+ERROR: FAMILY: US04: 487: F9: Divorced 1978-06-6 before married 1980-06-5
+ERROR: FAMILY: US05: 422: F2: Married 2000-06-8 after husband's (I4) death on 1984-07-15
+ERROR: FAMILY: US05: 430: F3: Married 1949-08-8 after husband's (I13) death on 1927-05-7
+ERROR: FAMILY: US05: 430: F3: Married 1949-08-8 after wife's (I14) death on 1911-07-21
+ERROR: FAMILY: US06: 430: F3: Divorced 2020-06-9 after husband's (I13) death on 1927-05-7
+ERROR: FAMILY: US06: 430: F3: Divorced 2020-06-9 after wife's (I14) death on 1927-05-7
+ERROR: INDIVIDUAL: US07: 106: I10: More then 150 years old - Birth date 1860-07-7
+ERROR: INDIVIDUAL: US07: 177: I17: More then 150 years old - Birth date 1960-08-8
+ANOMALY: FAMILY: US08: 422: F2: Child I2 born 1967-06-30 before marriage on 2000-06-8
+ANOMALY: FAMILY: US08: 422: F2: Child I6 born 1957-05-10 before marriage on 2000-06-8
+ANOMALY: FAMILY: US08: 422: F2: Child I10 born 1860-07-7 before marriage on 2000-06-8
+ANOMALY: FAMILY: US08: 422: F2: Child I24 born 1975-07-7 before marriage on 2000-06-8
+ANOMALY: FAMILY: US08: 422: F2: Child I25 born 2000-05-5 before marriage on 2000-06-8
+ANOMALY: FAMILY: US08: 487: F9: Child I26 born 2001-04-3 after divorce on 1978-06-6
+ANOMALY: FAMILY: US08: 487: F9: Child I27 born 2001-04-3 after divorce on 1978-06-6
+ERROR: FAMILY: US12: 39: F1 : Wife's (I3) birth 1967-06-30 is more then 60 years old at the child (I1) birth 2030-10-1
+ERROR: FAMILY: US12: 60: F2 : Wife's (I5) birth 1930-10-10 is more then 60 years old at the child (I25) birth 2000-05-5
+ERROR: FAMILY: US12: 88: F4 : Wife's (I8) birth 1957-05-10 is more then 60 years old at the child (I9) birth 2024-10-8
+ERROR: FAMILY: US12: 106: F5 : Wife's (I10) birth 1967-07-13 is more then 60 years old at the child (I11) birth 1992-06-7
+ERROR: FAMILY: US12: 177: F7 : Wife's (I17) birth 1955-06-6 is more then 60 years old at the child (I16) birth 1982-08-9
+ERROR: FAMILY: US17: 261: F9: Parent should not marry the child: Husband (I26) has the same ID as the child (I26) 
+ERROR: FAMILY: US17: 252: F9: Parent should not marry the child: Husband (I27) has the same ID as the child (I27) 
