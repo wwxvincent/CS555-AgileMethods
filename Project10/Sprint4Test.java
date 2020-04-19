@@ -96,8 +96,27 @@ public class Sprint4Test {
 	
 	
 	
-	//-----------------Shweta Singh Part-------------------	
-	//-----------------Shweta Singh part done--------------
+	/**
+	 * --------------------Shweta Singh part-------------------------------
+	 */
+	@Test
+	public void testUS21() {
+
+		assertEquals(individualList.size(), 0);//FALSE
+		assertEquals(gedObj.checkGender(), true);//TRUE
+		assertFalse(individualList.isEmpty());//TRUE
+		 
+	}
+	@Test
+	public void testUS15() throws ParseException {
+
+		assertEquals(individualList.size(), 0);//False
+		assertEquals(gedObj.checkFewerSibling(), true);//TRUE
+		assertFalse(individualList.isEmpty());//TRUE
+
+	/***********************************************
+	 * Shweta Singh part done!
+	 ************************************************/
 	
 	
 	//-----------------Chengyi Zhang Part-------------------
